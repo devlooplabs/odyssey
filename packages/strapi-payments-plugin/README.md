@@ -1,0 +1,1 @@
+# strapi-payments-plugin

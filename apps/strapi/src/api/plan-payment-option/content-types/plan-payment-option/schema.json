@@ -1,0 +1,33 @@
+{
+  "kind": "collectionType",
+  "collectionName": "plan_payment_options",
+  "info": {
+    "singularName": "plan-payment-option",
+    "pluralName": "plan-payment-options",
+    "displayName": "Plan Payment Option",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "gateway": {
+      "type": "enumeration",
+      "enum": [
+        "stripe",
+        "mercadopago"
+      ],
+      "required": true
+    },
+    "data": {
+      "type": "json",
+      "required": true
+    }
+  }
+}

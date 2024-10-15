@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "serie_episodes",
+  "info": {
+    "singularName": "serie-episode",
+    "pluralName": "serie-episodes",
+    "displayName": "Serie Episode",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "string"
+    },
+    "sequence": {
+      "type": "integer",
+      "required": true
+    },
+    "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "video": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "videos"
+      ]
+    },
+    "season": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::serie-season.serie-season",
+      "inversedBy": "episodes"
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "name": "@strapi/provider-upload-multiple",
+  "version": "1.0.0",
+  "description": "A custom upload provider for Strapi that supports multiple file uploads",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "watch": "rollup -c -w"
+  },
+  "keywords": [
+    "strapi",
+    "upload",
+    "multiple",
+    "provider"
+  ],
+  "author": "devlooplabs",
+  "license": "ISC",
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^12.1.0",
+    "@types/node": "^20",
+    "rollup": "^4.24.0",
+    "typescript": "^5.6.3"
+  }
+}

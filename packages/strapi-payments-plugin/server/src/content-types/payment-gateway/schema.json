@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "payment_gateways",
+  "info": {
+    "singularName": "payment-gateway",
+    "pluralName": "payment-gateways",
+    "displayName": "Payment Gateway",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "displayName": {
+      "type": "string"
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "gateway": {
+      "type": "enumeration",
+      "enum": ["gateways.stripe"],
+      "required": true,
+      "default": "gateways.stripe"
+    },
+    "settings": {
+      "type": "dynamiczone",
+      "components": ["gateways.stripe"],
+      "required": true
+    }
+  }
+}
