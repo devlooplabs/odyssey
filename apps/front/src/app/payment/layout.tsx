@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { getAuth } from "@/lib/odyssey/auth";
+import { getAuth } from "@/lib/auth/auth";
 import { redirect } from "next/navigation";
 
 export default async function Layout({

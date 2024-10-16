@@ -42,12 +42,6 @@ export interface Role {
   type: RoleType;
 }
 
-export enum RoleIds {
-  public = 1,
-  authenticated = 2,
-  member = 3,
-}
-
 export interface RegisterUserParams {
   username: string;
   password: string;

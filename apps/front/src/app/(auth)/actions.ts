@@ -4,16 +4,7 @@ import { redirect } from "next/navigation";
 import { SignInModel, SignUpModel } from "./schemas";
 import { cookies } from "next/headers";
 import { Odyssey } from "@/lib/odyssey/odyssey";
-
-const config = {
-  maxAge: 60 * 60 * 24 * 7, // 1 week
-  path: "/",
-  domain: process.env.HOST ?? "localhost",
-  httpOnly: true,
-  secure:
-    process.env.NODE_ENV === "production" &&
-    process.env.HOST !== "beta.ual.devloop.me",
-};
+import { cookieConfig } from "@/lib/auth/utils";
 
 interface AuthActionResult {
   success: boolean;
@@ -41,7 +32,7 @@ export async function signup(model: SignUpModel): Promise<AuthActionResult> {
     };
   }
 
-  cookies().set("jwt", resp.jwt, config);
+  cookies().set("jwt", resp.jwt, cookieConfig);
   
   if (model.redirectUrl) {
     return redirect(model.redirectUrl);
@@ -67,16 +58,11 @@ export async function signin(model: SignInModel): Promise<AuthActionResult> {
     };
   }
 
-  cookies().set("jwt", result.jwt, config);
+  cookies().set("jwt", result.jwt, cookieConfig);
 
   if (model.redirectUrl) {
     return redirect(model.redirectUrl);
   }
 
   return redirect("/");
-}
-
-export async function logout() {
-  cookies().set("jwt", "", { ...config, maxAge: 0 });
-  redirect("/signin");
 }

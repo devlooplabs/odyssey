@@ -4,7 +4,8 @@ import { useState, useEffect, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { AuthContext } from "./auth-context";
 import { User } from "@/lib/odyssey/types";
-import { getAuth } from "@/lib/odyssey/auth";
+import { getAuth, logout } from "@/lib/auth/auth";
+import { RoleTypes } from "@/lib/auth/utils";
 
 export function AuthProvider({
   children,
@@ -33,15 +34,13 @@ export function AuthProvider({
   };
 
   const signOut = async () => {
-    startLoading(async () => {
-      await fetch("/api/users/signout");
-      setUser(null);
-      router.push("/signin");
-    });
+    startLoading(async () => await logout());
   };
 
   const isMember = () => {
-    return user?.membership?.active === true;
+    return (
+      user?.membership?.active === true && user?.role?.type == RoleTypes.member
+    );
   };
 
   return (
