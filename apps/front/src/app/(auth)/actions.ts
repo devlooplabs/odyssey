@@ -10,7 +10,9 @@ const config = {
   path: "/",
   domain: process.env.HOST ?? "localhost",
   httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
+  secure:
+    process.env.NODE_ENV === "production" &&
+    process.env.HOST !== "beta.ual.devloop.me",
 };
 
 interface AuthActionResult {
