@@ -5,8 +5,6 @@ interface AuthContextProps {
   user: User | null;
   loading: boolean;
   isMember: boolean;
-  signIn: () => void;
-  onSignIn: () => void;
   signOut: () => Promise<void>;
 }
 

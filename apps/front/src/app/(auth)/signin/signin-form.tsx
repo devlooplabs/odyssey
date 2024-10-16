@@ -16,12 +16,10 @@ import { Loader2 } from "lucide-react";
 import { signin } from "../actions";
 import { SignInModel, SignInSchema } from "../schemas";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useAuth } from "@/components/auth/auth-context";
 
 export function SignInForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { onSignIn } = useAuth();
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string>();
 
@@ -33,7 +31,6 @@ export function SignInForm() {
     startTransition(async () => {
       const result = await signin(values);
       if (result.success) {
-        onSignIn();
         router.push("/");
       } else {
         setError(result.error);

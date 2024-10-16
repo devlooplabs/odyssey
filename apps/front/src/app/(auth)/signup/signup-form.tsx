@@ -16,11 +16,9 @@ import { Loader2 } from "lucide-react";
 import { signup } from "../actions";
 import { SignUpModel, SignUpSchema } from "../schemas";
 import { useRouter } from "next/navigation";
-import { useAuth } from "@/components/auth/auth-context";
 
 export function SignUpForm() {
   const router = useRouter();
-  const { onSignIn } = useAuth();
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string>();
 
@@ -32,7 +30,6 @@ export function SignUpForm() {
     startTransition(async () => {
       const result = await signup(values);
       if (result.success) {
-        onSignIn();
         router.push("/");
       } else {
         setError(result.error);
