@@ -1,6 +1,12 @@
+"use client";
+
+import { P } from "@/components/typography/texts";
 import { SignUpForm } from "./signup-form";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 export default function SignUp() {
+  const router = useRouter();
   return (
     <>
       <div className="flex flex-col space-y-2 text-center">
@@ -12,6 +18,14 @@ export default function SignUp() {
         </p>
       </div>
       <SignUpForm />
+      <div>
+        <P size="sm">
+          Já possui uma conta?
+          <Button variant="link" onClick={() => router.push("/signin")}>
+            Faça login!
+          </Button>
+        </P>
+      </div>
     </>
   );
 }
