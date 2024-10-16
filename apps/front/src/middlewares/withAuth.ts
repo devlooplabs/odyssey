@@ -10,7 +10,7 @@ export const withAuth: Middleware = (next) => {
       const jwt = request.cookies.get("jwt");
       if (!jwt) {
         const redirectUrl = request.nextUrl.pathname + request.nextUrl.search;
-        const url = new URL(`/signin`, request.url);
+        const url = new URL(`/login`, request.url);
         url.searchParams.set("redirectUrl", redirectUrl);
         return NextResponse.redirect(url);
       }

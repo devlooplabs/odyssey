@@ -5,23 +5,38 @@ import { AuthContext } from "./auth-context";
 import { User } from "@/lib/odyssey/types";
 import { getAuth, logout } from "@/lib/auth/auth";
 import { RoleTypes } from "@/lib/auth/utils";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export function AuthProvider({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const [loading, startLoading] = useTransition();
   const [user, setUser] = useState<User | null>(null);
 
-  useEffect(() => {
-    startLoading(async () => {
-      const { user } = await getAuth();
-      setUser(user);
-    });
-  }, []);
+  async function load() {
+    const { user } = await getAuth();
+    setUser(user);
+  }
 
-  const signOut = async () => {
-    startLoading(async () => await logout());
-  };
+  function onLogout() {
+    startLoading(async () => {
+      await logout();
+      await load();
+    });
+  }
+
+  async function onLogin() {
+    await load();
+    const redirectUrl = searchParams.get("redirectUrl");
+    if (redirectUrl) router.push(redirectUrl);
+    else router.push("/");
+  }
+
+  useEffect(() => {
+    startLoading(async () => await load());
+  }, []);
 
   const isMember = () => {
     return (
@@ -35,7 +50,8 @@ export function AuthProvider({
         user,
         isMember: isMember(),
         loading,
-        signOut,
+        logout: onLogout,
+        onLogin,
       }}
     >
       {children}

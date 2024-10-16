@@ -16,9 +16,11 @@ import { Loader2 } from "lucide-react";
 import { signin } from "../actions";
 import { SignInModel, SignInSchema } from "../schemas";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useAuth } from "@/components/auth/auth-context";
 
 export function SignInForm() {
   const router = useRouter();
+  const { onLogin } = useAuth();
   const searchParams = useSearchParams();
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string>();
@@ -29,30 +31,18 @@ export function SignInForm() {
 
   function onSubmit(values: SignInModel) {
     startTransition(async () => {
-      const result = await signin(values);
-      if (result.success) {
-        router.push("/");
+      const { user, error } = await signin(values);
+      if (user) {
+        await onLogin();
       } else {
-        setError(result.error);
+        setError(error);
       }
     });
   }
 
-  useEffect(() => {
-    const redirectUrl = searchParams.get("redirectUrl");
-    if (redirectUrl) {
-      form.setValue("redirectUrl", redirectUrl);
-    }
-  }, [searchParams, form.setValue]);
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          name="redirectUrl"
-          control={form.control}
-          render={({ field }) => <Input {...field} type="hidden" />}
-        />
         <FormField
           name="identifier"
           control={form.control}

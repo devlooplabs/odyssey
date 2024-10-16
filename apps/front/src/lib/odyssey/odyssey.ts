@@ -31,6 +31,14 @@ export class Odyssey {
       if (this.token) config.headers.Authorization = `Bearer ${this.token}`;
       return config;
     });
+
+    this.client.interceptors.response.use(null, (error) => {
+      if (error.response && error.response.status === 400) {
+        return Promise.resolve(error.response);
+      }
+
+      return Promise.reject(error);
+    });
   }
 
   async getSeries() {
@@ -43,13 +51,13 @@ export class Odyssey {
     const query = qs.stringify(
       {
         populate: {
-          thumbnail: true, // Populate series' thumbnail
+          thumbnail: true,
           seasons: {
-            populate: "thumbnail", // Populate each season's thumbnail
+            populate: "thumbnail",
           },
         },
       },
-      { encodeValuesOnly: true } // Ensure only values are URL-encoded
+      { encodeValuesOnly: true }
     );
 
     const url = `/api/series/${id}?${query}`;
@@ -61,11 +69,11 @@ export class Odyssey {
     const query = qs.stringify(
       {
         populate: {
-          thumbnail: true, // Populate the episode's thumbnail
-          video: true, // Populate the episode's video
+          thumbnail: true,
+          video: true,
         },
       },
-      { encodeValuesOnly: true } // Ensure only values are URL-encoded
+      { encodeValuesOnly: true }
     );
 
     const url = `/api/serie-episodes/${id}?${query}`;
@@ -77,11 +85,11 @@ export class Odyssey {
     const query = qs.stringify(
       {
         filters: serieId ? { serie: { id: { $eq: serieId } } } : undefined,
-        sort: ["publishedAt:desc"], // Sort by publishAt in descending order
-        populate: "thumbnail", // Populate the thumbnail field
-        pagination: count ? { limit: count } : undefined, // Apply limit if provided
+        sort: ["publishedAt:desc"],
+        populate: "thumbnail",
+        pagination: count ? { limit: count } : undefined,
       },
-      { encodeValuesOnly: true } // Ensure only values are URL-encoded
+      { encodeValuesOnly: true }
     );
 
     const url = `/api/serie-episodes?${query}`;
@@ -93,16 +101,16 @@ export class Odyssey {
     const query = qs.stringify(
       {
         populate: {
-          thumbnail: true, // Populate season's thumbnail
+          thumbnail: true,
           episodes: {
-            populate: "thumbnail", // Populate each episode's thumbnail
+            populate: "thumbnail",
           },
           serie: {
-            fields: ["id", "name", "description"], // Fetch only id, name, and description of the associated series
+            fields: ["id", "name", "description"],
           },
         },
       },
-      { encodeValuesOnly: true } // Ensure only values are URL-encoded
+      { encodeValuesOnly: true }
     );
 
     const url = `/api/serie-seasons/${id}?${query}`;
@@ -114,11 +122,11 @@ export class Odyssey {
     const query = qs.stringify(
       {
         filters: serieId ? { serie: { id: { $eq: serieId } } } : undefined,
-        sort: ["sequence"], // Sort by publishAt in descending order
-        populate: "thumbnail", // Populate the thumbnail field
-        pagination: count ? { limit: count } : undefined, // Apply limit if provided
+        sort: ["sequence"],
+        populate: "thumbnail",
+        pagination: count ? { limit: count } : undefined,
       },
-      { encodeValuesOnly: true } // Ensure only values are URL-encoded
+      { encodeValuesOnly: true }
     );
 
     const url = `/api/serie-seasons?${query}`;

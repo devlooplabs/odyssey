@@ -5,7 +5,8 @@ interface AuthContextProps {
   user: User | null;
   loading: boolean;
   isMember: boolean;
-  signOut: () => Promise<void>;
+  logout: () => void;
+  onLogin: () => Promise<void>;
 }
 
 export const AuthContext = createContext<AuthContextProps | undefined>(

@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { SignInForm } from "./signin-form";
+import { SignInForm } from "./login-form";
 import { P } from "@/components/typography/texts";
 import { useRouter } from "next/navigation";
 

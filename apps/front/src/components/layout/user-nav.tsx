@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 export function UserNav() {
   const router = useRouter();
-  const { user, loading, signOut } = useAuth();
+  const { user, loading, logout: signOut } = useAuth();
 
   function onSignOut() {
     signOut();
@@ -34,7 +34,7 @@ export function UserNav() {
         <>
           <Button
             variant="outline"
-            onClick={() => router.push("/signin")}
+            onClick={() => router.push("/login")}
             className={cn(buttonCls, "uppercase")}
             disabled={loading}
           >

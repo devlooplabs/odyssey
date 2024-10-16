@@ -16,9 +16,11 @@ import { Loader2 } from "lucide-react";
 import { signup } from "../actions";
 import { SignUpModel, SignUpSchema } from "../schemas";
 import { useRouter } from "next/navigation";
+import { useAuth } from "@/components/auth/auth-context";
 
 export function SignUpForm() {
   const router = useRouter();
+  const { onLogin } = useAuth();
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string>();
 
@@ -28,11 +30,11 @@ export function SignUpForm() {
 
   function onSubmit(values: SignUpModel) {
     startTransition(async () => {
-      const result = await signup(values);
-      if (result.success) {
-        router.push("/");
+      const { user, error} = await signup(values);
+      if (user) {
+        await onLogin();
       } else {
-        setError(result.error);
+        setError(error);
       }
     });
   }

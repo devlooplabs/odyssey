@@ -21,7 +21,7 @@ export default function SignUp() {
       <div>
         <P size="sm">
           Já possui uma conta?
-          <Button variant="link" onClick={() => router.push("/signin")}>
+          <Button variant="link" onClick={() => router.push("/login")}>
             Faça login!
           </Button>
         </P>

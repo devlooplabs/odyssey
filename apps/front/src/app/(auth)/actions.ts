@@ -5,10 +5,11 @@ import { SignInModel, SignUpModel } from "./schemas";
 import { cookies } from "next/headers";
 import { Odyssey } from "@/lib/odyssey/odyssey";
 import { cookieConfig } from "@/lib/auth/utils";
+import { User } from "@/lib/odyssey/types";
 
 interface AuthActionResult {
+  user: User | null;
   success: boolean;
-  jwt?: string;
   error?: string;
 }
 
@@ -17,28 +18,25 @@ const odyssey = new Odyssey();
 export async function signup(model: SignUpModel): Promise<AuthActionResult> {
   // TODO: Validate model.
 
-  const resp = await odyssey.register({
+  const result = await odyssey.register({
     email: model.email,
     username: model.username,
     password: model.password,
   });
 
-  if (!resp || resp.error) {
+  if (!result || result.error) {
     return {
+      user: null,
       success: false,
       error:
-        resp?.error?.message ||
+        result?.error?.message ||
         "Ops! Tivemos um problema ao realizar o seu cadastro. Tente novamente mais tarde.",
     };
   }
 
-  cookies().set("jwt", resp.jwt, cookieConfig);
-  
-  if (model.redirectUrl) {
-    return redirect(model.redirectUrl);
-  }
+  cookies().set("jwt", result.jwt, cookieConfig);
 
-  return redirect("/");
+  return { user: result.user, success: true };
 }
 
 export async function signin(model: SignInModel): Promise<AuthActionResult> {
@@ -51,6 +49,7 @@ export async function signin(model: SignInModel): Promise<AuthActionResult> {
 
   if (!result || result.error) {
     return {
+      user: null,
       success: false,
       error:
         result?.error?.message ||
@@ -60,9 +59,5 @@ export async function signin(model: SignInModel): Promise<AuthActionResult> {
 
   cookies().set("jwt", result.jwt, cookieConfig);
 
-  if (model.redirectUrl) {
-    return redirect(model.redirectUrl);
-  }
-
-  return redirect("/");
+  return { user: result.user, success: true };
 }

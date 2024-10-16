@@ -4,7 +4,6 @@ import { cookies } from "next/headers";
 import { cache } from "react";
 import { User } from "../odyssey/types";
 import { Odyssey } from "../odyssey/odyssey";
-import { cookieConfig } from "./utils";
 
 interface AuthResult {
   user: User | null;
@@ -21,5 +20,5 @@ export const getAuth = cache(async (): Promise<AuthResult> => {
 });
 
 export async function logout() {
-  cookies().set("jwt", "", { ...cookieConfig, maxAge: 0 });
+  cookies().delete("jwt");
 }
