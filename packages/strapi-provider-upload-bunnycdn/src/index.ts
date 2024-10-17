@@ -1,62 +1,32 @@
-import { ReadStream } from "fs";
-import { Buffer } from "buffer";
-import Bunny from "./utils/bunny";
-
-export interface Config {
-  private?: boolean;
-  libraryId: number;
-  libraryKey: string;
-  pullZone: string;
-  tokenSecurityKey: string;
-}
-
-export interface StrapiFile {
-  name: string;
-  alternativeText?: string;
-  caption?: string;
-  width?: number;
-  height?: number;
-  formats?: Record<string, unknown>;
-  hash: string;
-  ext?: string;
-  mime: string;
-  size: number;
-  sizeInBytes: number;
-  url: string;
-  previewUrl?: string;
-  path?: string;
-  provider?: string;
-  provider_metadata?: Record<string, any>;
-  stream?: ReadStream;
-  buffer?: Buffer;
-}
+import Bunny from "./bunny";
+import { BunnyCdnConfig } from "./bunny/types";
+import { StrapiFile } from "./types";
 
 export default {
-  init(config: Config) {
-    const bunny = new Bunny(
-      config.libraryId,
-      config.libraryKey,
-      config.pullZone,
-      config.tokenSecurityKey
-    );
+  init(config: BunnyCdnConfig) {
+    const bunny = new Bunny(config);
 
     return {
+      // Privateness will be handled according to storage/stream configs.
       isPrivate() {
-        return config.private === true;
+        return true;
       },
 
       async getSignedUrl(file: StrapiFile) {
         const url = bunny.signUrl(file);
         return { url };
       },
-      async upload(file: StrapiFile) {},
+
+      async upload(file: StrapiFile) {
+        return await bunny.upload(file);
+      },
 
       async uploadStream(file: StrapiFile) {
-        return await bunny.streamUpload(file);
+        return await bunny.upload(file);
       },
 
       async delete(file: StrapiFile) {
-        return await bunny.deleteVideo(file);
+        return await bunny.delete(file);
       },
     };
   },

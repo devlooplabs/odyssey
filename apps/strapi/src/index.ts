@@ -17,6 +17,6 @@ export default {
    * run jobs, or perform some special logic.
    */
   bootstrap({ strapi }: { strapi: Core.Strapi }) {
-    strapi.server.httpServer.requestTimeout = 1 * 60 * 60 * 1000;
+    strapi.server.httpServer.requestTimeout = 3 * 60 * 60 * 1000;
   },
 };

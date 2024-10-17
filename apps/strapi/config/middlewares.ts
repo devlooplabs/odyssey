@@ -14,6 +14,7 @@ export default [
             "blob:",
             "market-assets.strapi.io",
             "vz-148380a4-717.b-cdn.net",
+            "test-ual-mateus.b-cdn.net",
           ],
           "media-src": [
             "'self'",
@@ -21,6 +22,7 @@ export default [
             "blob:",
             "market-assets.strapi.io",
             "vz-148380a4-717.b-cdn.net",
+            "test-ual-mateus.b-cdn.net"
           ],
         },
       },

@@ -1,31 +1,18 @@
 import { createHash } from "crypto";
+import { StrapiFile } from "../types";
 
-function addCountries(
-  url: string,
-  countriesAllowed?: string,
-  countriesBlocked?: string
-): string {
-  let modifiedUrl = url;
-
-  if (countriesAllowed) {
-    const urlObj = new URL(modifiedUrl);
-    modifiedUrl += `${urlObj.search === "" ? "?" : "&"}token_countries=${countriesAllowed}`;
-  }
-
-  if (countriesBlocked) {
-    const urlObj = new URL(modifiedUrl);
-    modifiedUrl += `${urlObj.search === "" ? "?" : "&"}token_countries_blocked=${countriesBlocked}`;
-  }
-
-  return modifiedUrl;
+export function getFilePath(file: StrapiFile) {
+  console.log(`File path: ${file.path}`);
+  const path = file.path ? `${file.path}/` : '';
+  return `${path}${file.hash}${file.ext}`;
 }
 
 export function signBunnyUrl(
   originalUrl: string,
   securityKey: string,
-  expirationTime: number = 3600,
+  tokenAsPath: boolean = false,
+  expirationTime: number = 900,
   userIp?: string,
-  isDirectory: boolean = false,
   pathAllowed?: string,
   countriesAllowed?: string,
   countriesBlocked?: string
@@ -66,14 +53,36 @@ export function signBunnyUrl(
   });
 
   const hashableBase = `${securityKey}${signaturePath}${expires}${userIp ?? ""}${parameterData}`;
-  let token = createHash("sha256").update(hashableBase).digest("base64");
+  const token = createHash("sha256")
+    .update(hashableBase)
+    .digest("base64")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/, "");
 
-  // Clean up the token
-  token = token.replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
-
-  if (isDirectory) {
+  if (tokenAsPath) {
     return `${parsedUrl.protocol}//${parsedUrl.host}/bcdn_token=${token}${parameterDataUrl}&expires=${expires}${parsedUrl.pathname}`;
   } else {
     return `${parsedUrl.protocol}//${parsedUrl.host}${parsedUrl.pathname}?token=${token}${parameterDataUrl}&expires=${expires}`;
   }
+}
+
+function addCountries(
+  url: string,
+  countriesAllowed?: string,
+  countriesBlocked?: string
+): string {
+  let modifiedUrl = url;
+
+  if (countriesAllowed) {
+    const urlObj = new URL(modifiedUrl);
+    modifiedUrl += `${urlObj.search === "" ? "?" : "&"}token_countries=${countriesAllowed}`;
+  }
+
+  if (countriesBlocked) {
+    const urlObj = new URL(modifiedUrl);
+    modifiedUrl += `${urlObj.search === "" ? "?" : "&"}token_countries_blocked=${countriesBlocked}`;
+  }
+
+  return modifiedUrl;
 }
