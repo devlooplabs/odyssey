@@ -2,7 +2,6 @@ import { createHash } from "crypto";
 import { StrapiFile } from "../types";
 
 export function getFilePath(file: StrapiFile) {
-  console.log(`File path: ${file.path}`);
   const path = file.path ? `${file.path}/` : '';
   return `${path}${file.hash}${file.ext}`;
 }

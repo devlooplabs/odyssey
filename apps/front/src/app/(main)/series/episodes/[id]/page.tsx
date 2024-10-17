@@ -13,8 +13,6 @@ export default async function Page({ params }: { params: { id: string } }) {
     ? await getVideoIFrameUrl(ep.video.provider_metadata.guid)
     : null;
 
-  console.log(ep);
-
   return (
     <div className="space-y-8">
       <div className="relative flex justify-center">

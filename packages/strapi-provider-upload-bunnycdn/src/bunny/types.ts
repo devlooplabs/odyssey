@@ -23,6 +23,6 @@ export interface BunnyStorageConfig {
 export interface BunnyStreamConfig {
   private?: boolean;
   baseUrl: string;
-  libraryId: number;
+  libraryId: string;
   libraryKey: string;
 }

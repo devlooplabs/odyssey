@@ -13,16 +13,16 @@ export default [
             "data:",
             "blob:",
             "market-assets.strapi.io",
-            "vz-148380a4-717.b-cdn.net",
-            "test-ual-mateus.b-cdn.net",
+            process.env.BUNNYCDN_HOST,
+            process.env.BUNNYCDN_STREAM_HOST,
           ],
           "media-src": [
             "'self'",
             "data:",
             "blob:",
             "market-assets.strapi.io",
-            "vz-148380a4-717.b-cdn.net",
-            "test-ual-mateus.b-cdn.net"
+            process.env.BUNNYCDN_HOST,
+            process.env.BUNNYCDN_STREAM_HOST
           ],
         },
       },

@@ -1,24 +1,38 @@
 import { BunnyCdnConfig } from "@strapi/provider-upload-bunnycdn/dist/bunny/types";
 
 export default ({ env }) => ({
+  email: {
+    config: {
+      provider: "amazon-ses",
+      providerOptions: {
+        key: env("AWS_SES_KEY"),
+        secret: env("AWS_SES_SECRET"),
+        amazon: env("AWS_SES_URL")
+      },
+      settings: {
+        defaultFrom: "no-reply@altalinguagem.tv",
+        defaultReplyTo: "no-reply@altalinguagem.tv"
+      }
+    }
+  },
   upload: {
     config: {
       provider: "bunnycdn",
       sizeLimit: 20 * 1024 * 1024 * 1024,
       providerOptions: {
-        baseUrl: "https://test-ual-mateus.b-cdn.net/",
-        tokenSecurityKey: "3ca98933-41b0-4c32-9d51-301a1b104fe5",
+        baseUrl: env("BUNNYCDN_BASEURL"),
+        tokenSecurityKey: env("BUNNYCDN_TOKEN_SECURITY_KEY"),
         storage: {
           private: false,
-          name: "plataforma",
-          region: "br",
-          password: "523393c2-26a6-4053-87b89dff7f18-827a-4b9c",
+          name: env("BUNNYCDN_STORAGE_NAME"),
+          region: env("BUNNYCDN_STORAGE_REGION"),
+          password: env("BUNNYCDN_STORAGE_PASSWORD"),
         },
         stream: {
           private: true,
-          baseUrl: "https://vz-148380a4-717.b-cdn.net",
-          libraryId: 326578,
-          libraryKey: "a97e1ae9-bf13-48bd-a17049be96d6-9b15-416a",
+          baseUrl: env("BUNNYCDN_STREAM_BASEURL"),
+          libraryId: env("BUNNYCDN_STREAM_LIBRARY_ID"),
+          libraryKey: env("BUNNYCDN_STREAM_LIBRARY_KEY"),
         },
       } as BunnyCdnConfig,
     },

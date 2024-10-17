@@ -6,7 +6,6 @@ import { redirect } from "next/navigation";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const { id } = params;
-  console.log(id);
   const season = await getSerieSeason(id);
   if (!season) return redirect("/not-found");
 
