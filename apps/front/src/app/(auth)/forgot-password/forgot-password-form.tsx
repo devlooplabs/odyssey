@@ -13,29 +13,24 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import { signin } from "../actions";
-import { SignInModel, SignInSchema } from "../schemas";
-import { useAuth } from "@/components/auth/auth-context";
-import { P } from "@/components/typography/texts";
-import Link from "next/link";
+import { ForgotPasswordModel, ForgotPasswordSchema } from "../schemas";
 
-export function SignInForm() {
-  const { onLogin } = useAuth();
+export function ForgotPasswordForm() {
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string>();
 
-  const form = useForm<SignInModel>({
-    resolver: zodResolver(SignInSchema),
+  const form = useForm<ForgotPasswordModel>({
+    resolver: zodResolver(ForgotPasswordSchema),
   });
 
-  function onSubmit(values: SignInModel) {
+  function onSubmit(values: ForgotPasswordModel) {
     startTransition(async () => {
-      const { user, error } = await signin(values);
-      if (user) {
-        await onLogin();
-      } else {
-        setError(error);
-      }
+      // const { user, error } = await signin(values);
+      // if (user) {
+      //   await onLogin();
+      // } else {
+      //   setError(error);
+      // }
     });
   }
 
@@ -44,12 +39,12 @@ export function SignInForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <div className="space-y-4">
           <FormField
-            name="identifier"
+            name="email"
             control={form.control}
             disabled={pending}
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Usuário ou E-mail</FormLabel>
+                <FormLabel>E-mail</FormLabel>
                 <FormControl>
                   <Input {...field} disabled={pending} />
                 </FormControl>
@@ -57,24 +52,6 @@ export function SignInForm() {
               </FormItem>
             )}
           />
-          <FormField
-            name="password"
-            control={form.control}
-            disabled={pending}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Senha</FormLabel>
-                <FormControl>
-                  <Input type="password" {...field} disabled={pending} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <P size="sm">
-            Esqueceu sua senha?{" "}
-            <Link href="/forgot-password">Clique aqui!</Link>{" "}
-          </P>
           {error && (
             <div className="text-red-700 text-sm text-center">{error}</div>
           )}
@@ -89,7 +66,7 @@ export function SignInForm() {
             {pending ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
-              <>Entrar</>
+              <>Enviar</>
             )}
           </Button>
         </div>

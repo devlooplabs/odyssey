@@ -1,4 +1,5 @@
 "use client";
+
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -13,29 +14,24 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import { signin } from "../actions";
-import { SignInModel, SignInSchema } from "../schemas";
-import { useAuth } from "@/components/auth/auth-context";
-import { P } from "@/components/typography/texts";
-import Link from "next/link";
+import { ResetPasswordModel, ResetPasswordSchema } from "../schemas";
 
-export function SignInForm() {
-  const { onLogin } = useAuth();
+export function ResetPasswordForm() {
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string>();
 
-  const form = useForm<SignInModel>({
-    resolver: zodResolver(SignInSchema),
+  const form = useForm<ResetPasswordModel>({
+    resolver: zodResolver(ResetPasswordSchema),
   });
 
-  function onSubmit(values: SignInModel) {
+  function onSubmit(values: ResetPasswordModel) {
     startTransition(async () => {
-      const { user, error } = await signin(values);
-      if (user) {
-        await onLogin();
-      } else {
-        setError(error);
-      }
+      // const { user, error } = await signup(values);
+      // if (user) {
+      //   await onLogin();
+      // } else {
+      //   setError(error);
+      // }
     });
   }
 
@@ -44,20 +40,6 @@ export function SignInForm() {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <div className="space-y-4">
           <FormField
-            name="identifier"
-            control={form.control}
-            disabled={pending}
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Usuário ou E-mail</FormLabel>
-                <FormControl>
-                  <Input {...field} disabled={pending} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
             name="password"
             control={form.control}
             disabled={pending}
@@ -65,16 +47,26 @@ export function SignInForm() {
               <FormItem>
                 <FormLabel>Senha</FormLabel>
                 <FormControl>
-                  <Input type="password" {...field} disabled={pending} />
+                  <Input type="password" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
-          <P size="sm">
-            Esqueceu sua senha?{" "}
-            <Link href="/forgot-password">Clique aqui!</Link>{" "}
-          </P>
+          <FormField
+            name="confirmPassword"
+            control={form.control}
+            disabled={pending}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Confirme sua senha</FormLabel>
+                <FormControl>
+                  <Input type="password" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           {error && (
             <div className="text-red-700 text-sm text-center">{error}</div>
           )}
@@ -89,7 +81,7 @@ export function SignInForm() {
             {pending ? (
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             ) : (
-              <>Entrar</>
+              <>Trocar senha</>
             )}
           </Button>
         </div>

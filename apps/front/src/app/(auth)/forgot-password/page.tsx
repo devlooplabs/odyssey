@@ -1,5 +1,4 @@
 import { P } from "@/components/typography/texts";
-import { SignUpForm } from "./signup-form";
 import {
   Card,
   CardContent,
@@ -8,21 +7,23 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
+import { ForgotPasswordForm } from "./forgot-password-form";
 
-export default function SignUp() {
+export default function SignIn() {
   return (
     <Card className="border-none py-4">
       <CardHeader>
         <CardTitle className="text-center text-2xl">
-          Cadastre-se agora
+          Recupere sua senha
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <SignUpForm />
+        <ForgotPasswordForm />
       </CardContent>
-      <CardFooter className="justify-center">
+      <CardFooter className="justify-center flex-col space-y-4">
+        <P size="sm">Um link de recuperação será enviado para o seu e-mail.</P>
         <P size="sm">
-          Já possui uma conta? <Link href="/login">Faça login!</Link>
+          <Link href="/login">Fazer login.</Link>
         </P>
       </CardFooter>
     </Card>
