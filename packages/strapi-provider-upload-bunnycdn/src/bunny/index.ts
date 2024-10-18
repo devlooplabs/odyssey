@@ -1,4 +1,3 @@
-import { request, RequestOptions } from "https";
 import { BunnyCdnConfig } from "./types";
 import { getFilePath, signBunnyUrl } from "./utils";
 import { StrapiFile } from "../types";
@@ -35,13 +34,14 @@ export default class Bunny {
   }
 
   signUrl(file: StrapiFile) {
-    if (
-      this.config.tokenSecurityKey &&
-      (this.config.storage.private || this.config.stream?.private)
-    ) {
-      const tokenAsPath =
-        file.mime.startsWith("video") && !!this.config.stream?.private;
-      return signBunnyUrl(file.url, this.config.tokenSecurityKey, tokenAsPath);
+    if (this.config.tokenSecurityKey) {
+      if (file.mime.startsWith("video") && this.config.stream?.private) {
+        return signBunnyUrl(file.url, this.config.tokenSecurityKey, true);
+      }
+
+      if (this.config.storage.private) {
+        return signBunnyUrl(file.url, this.config.tokenSecurityKey);
+      }
     }
 
     return file.url;

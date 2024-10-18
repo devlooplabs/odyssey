@@ -26,11 +26,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         ) : (
           <MediaBanner
             name="Conteúdo bloqueado"
-            thumbnail={
-              ep.thumbnail
-                ? `${process.env.NEXT_PUBLIC_ODYSSEY_STRAPI_BASE_URL}${ep.thumbnail?.url}`
-                : undefined
-            }
+            thumbnail={ep.thumbnail?.url}
           />
         )}
       </div>

@@ -19,7 +19,7 @@ export default function Layout({
           />
         </header>
         <div className="container flex flex-col relative min-h-screen">
-          <div className="mx-auto flex w-full flex-col justify-center space-y-6 md:max-w-[400px] flex-grow">
+          <div className="mx-auto flex w-full flex-col justify-center space-y-6 md:max-w-[500px] flex-grow">
             {children}
           </div>
         </div>

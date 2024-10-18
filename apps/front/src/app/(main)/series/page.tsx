@@ -38,11 +38,7 @@ export default function Series() {
             url={`/series/episodes/${ep.documentId}`}
             publishedAt={ep.publishedAt}
             description={ep.description}
-            thumbnail={
-              ep.thumbnail
-                ? `${process.env.NEXT_PUBLIC_ODYSSEY_STRAPI_BASE_URL}${ep.thumbnail?.url}`
-                : undefined
-            }
+            thumbnail={ep.thumbnail?.formats.medium.url}
           />
         ))}
       </div>
@@ -54,11 +50,7 @@ export default function Series() {
           <MediaCard
             name={serie.name}
             url={`/series/${serie.documentId}`}
-            thumbnail={
-              serie.thumbnail
-                ? `${process.env.NEXT_PUBLIC_ODYSSEY_STRAPI_BASE_URL}${serie.thumbnail?.url}`
-                : undefined
-            }
+            thumbnail={serie.thumbnail?.formats.medium.url}
           />
         ))}
       </div>

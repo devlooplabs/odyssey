@@ -15,11 +15,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         <MediaBanner
           name={serie.name}
           description={serie.description}
-          thumbnail={
-            serie.thumbnail
-              ? `${process.env.NEXT_PUBLIC_ODYSSEY_STRAPI_BASE_URL}${serie.thumbnail?.url}`
-              : undefined
-          }
+          thumbnail={serie.thumbnail?.url}
         />
       </div>
       <div className="flex justify-center">
@@ -32,11 +28,7 @@ export default async function Page({ params }: { params: { id: string } }) {
               key={season.documentId}
               url={`/series/seasons/${season.documentId}`}
               name={season.name}
-              thumbnail={
-                season.thumbnail
-                  ? `${process.env.ODYSSEY_STRAPI_BASE_URL}${season.thumbnail?.url}`
-                  : undefined
-              }
+              thumbnail={season.thumbnail?.formats.medium.url}
             />
           ))}
       </div>

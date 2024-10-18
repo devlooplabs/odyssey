@@ -100,7 +100,7 @@ export interface Serie {
   name: string;
   publishedAt: string;
   description?: string;
-  thumbnail?: OdysseyFile;
+  thumbnail?: OdysseyImageFile;
   seasons?: SerieSeason[];
 }
 
@@ -111,7 +111,7 @@ export interface SerieSeason {
   sequence: number;
   description: string;
   publishedAt: string;
-  thumbnail: OdysseyFile;
+  thumbnail?: OdysseyImageFile;
   serie?: Serie;
   episodes?: SerieEpisode[];
 }
@@ -122,7 +122,7 @@ export interface SerieEpisode {
   name: string;
   publishedAt: string;
   description?: string;
-  thumbnail?: OdysseyFile;
+  thumbnail?: OdysseyImageFile;
   video?: OdysseyVideoFile;
 }
 
@@ -138,4 +138,19 @@ interface OdysseyVideoFile extends OdysseyFile {
   provider_metadata: {
     guid: string;
   };
+}
+
+interface OdysseyImageFile extends OdysseyFile {
+  formats: OdysseyImageFormats;
+}
+
+interface OdysseyImageFormats {
+  large: OdysseyImageFormat;
+  small: OdysseyImageFormat;
+  medium: OdysseyImageFormat;
+  thumbnail: OdysseyImageFormat;
+}
+
+interface OdysseyImageFormat {
+  url: string;
 }
