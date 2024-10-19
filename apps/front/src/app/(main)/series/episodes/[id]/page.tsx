@@ -2,7 +2,7 @@ import { H1 } from "@/components/typography/headings";
 import { P } from "@/components/typography/texts";
 import { getEpisode, getVideoIFrameUrl } from "../../actions";
 import { redirect } from "next/navigation";
-import { MediaBanner } from "@/components/content/media/media-banner";
+import { MediaBanner } from "@/components/media/media/media-banner";
 
 export default async function Page({ params }: { params: { id: string } }) {
   const { id } = params;

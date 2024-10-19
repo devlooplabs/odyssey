@@ -42,7 +42,16 @@ export class Odyssey {
   }
 
   async getSeries() {
-    const url = `/api/series?populate=thumbnail`;
+    const query = qs.stringify(
+      {
+        populate: {
+          thumbnail: true,
+          seasons: true,
+        },
+      },
+      { encodeValuesOnly: true }
+    );
+    const url = `/api/series?${query}`;
     const res = await this.client.get<StrapiFindResponse<Serie[]>>(url);
     return res.data;
   }
@@ -81,11 +90,29 @@ export class Odyssey {
     return res.data;
   }
 
-  async getSerieEpisodes(serieId?: string, count?: number) {
+  async getSerieEpisodes({
+    serieId,
+    seasonId,
+    count,
+  }: {
+    serieId?: string;
+    seasonId?: string;
+    count?: number;
+  }) {
+    const filters: any = {}; // Use an object to build the filters dynamically
+
+    if (serieId) {
+      filters.serie = { id: { $eq: serieId } };
+    }
+
+    if (seasonId) {
+      filters.season = { id: { $eq: seasonId } };
+    }
+
     const query = qs.stringify(
       {
-        filters: serieId ? { serie: { id: { $eq: serieId } } } : undefined,
-        sort: ["publishedAt:desc"],
+        filters: Object.keys(filters).length ? filters : undefined,
+        sort: ["sequence"],
         populate: "thumbnail",
         pagination: count ? { limit: count } : undefined,
       },

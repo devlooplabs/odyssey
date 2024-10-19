@@ -1,6 +1,7 @@
 "use server";
 
 import { Odyssey } from "@/lib/odyssey/odyssey";
+import { MediaType } from "@/lib/odyssey/types";
 import { cookies } from "next/headers";
 
 export async function getSerie(id: string) {
@@ -14,13 +15,13 @@ export async function getSeries() {
   const jwt = cookies().get("jwt")?.value;
   const odyssey = new Odyssey(jwt);
   const res = await odyssey.getSeries();
-  return res.data;
+  return res.data?.map((serie) => ({ ...serie, type: MediaType.serie }));
 }
 
 export async function getSerieEpisodes(serieId?: string, count?: number) {
   const jwt = cookies().get("jwt")?.value;
   const odyssey = new Odyssey(jwt);
-  const res = await odyssey.getSerieEpisodes(serieId, count);
+  const res = await odyssey.getSerieEpisodes({ serieId, count });
   return res.data;
 }
 

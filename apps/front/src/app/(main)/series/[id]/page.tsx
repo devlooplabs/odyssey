@@ -1,5 +1,5 @@
-import { MediaBanner } from "@/components/content/media/media-banner";
-import { MediaCard } from "@/components/content/media/media-card";
+import { MediaBanner } from "@/components/media/media/media-banner";
+import { MediaCard } from "@/components/media/media/media-card";
 import { H2 } from "@/components/typography/headings";
 import { getSerie } from "../actions";
 import { redirect } from "next/navigation";

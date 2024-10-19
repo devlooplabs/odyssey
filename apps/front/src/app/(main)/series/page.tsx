@@ -1,11 +1,12 @@
 "use client";
 
-import { MediaCard } from "@/components/content/media/media-card";
-import { MediaContentCard } from "@/components/content/media/media-content-card";
+import { MediaCard } from "@/components/media/media/media-card";
+import { MediaContentCard } from "@/components/media/media/media-content-card";
 import { H2 } from "@/components/typography/headings";
 import { Serie, SerieEpisode } from "@/lib/odyssey/types";
 import { useEffect, useState, useTransition } from "react";
 import { getSerieEpisodes, getSeries } from "./actions";
+import { MediaCarousel } from "@/components/media/media-carousel";
 
 export default function Series() {
   const [episodes, setEpisodes] = useState<SerieEpisode[]>([]);
@@ -15,11 +16,6 @@ export default function Series() {
   const [loadingSeries, loadSeries] = useTransition();
 
   useEffect(() => {
-    loadEpisodes(async () => {
-      const episodes = await getSerieEpisodes(undefined, 3);
-      if (episodes) setEpisodes(episodes);
-    });
-
     loadSeries(async () => {
       const series = await getSeries();
       if (series) setSeries(series);
@@ -28,7 +24,7 @@ export default function Series() {
 
   return (
     <div className="space-y-8">
-      <div className="w-full flex justify-center">
+      {/* <div className="w-full flex justify-center">
         <H2 variant="gradient">Últimos episódios</H2>
       </div>
       <div className="flex flex-wrap gap-8 justify-center">
@@ -41,18 +37,12 @@ export default function Series() {
             thumbnail={ep.thumbnail?.formats.medium.url}
           />
         ))}
-      </div>
+      </div> */}
       <div className="w-full flex justify-center">
         <H2 variant="gradient">Séries em destaque</H2>
       </div>
-      <div className="flex flex-wrap gap-8 justify-center">
-        {series.map((serie) => (
-          <MediaCard
-            name={serie.name}
-            url={`/series/${serie.documentId}`}
-            thumbnail={serie.thumbnail?.formats.medium.url}
-          />
-        ))}
+      <div className="w-full flex flex-wrap gap-8 justify-center">
+        {series ? <MediaCarousel medias={series} /> : <div>nada</div>}
       </div>
     </div>
   );

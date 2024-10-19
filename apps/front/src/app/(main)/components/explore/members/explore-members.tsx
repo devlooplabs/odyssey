@@ -1,4 +1,4 @@
-import { ContentCarousel } from "@/components/content/carousel/content-carousel";
+import { ContentCarousel } from "@/components/media/carousel/content-carousel";
 
 export function ExploreMembers() {
   return (

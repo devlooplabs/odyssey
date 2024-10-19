@@ -93,14 +93,39 @@ export interface Membership {
   gatewayData?: Record<string, any>;
 }
 
-/* Series */
-export interface Serie {
+/* Content */
+export enum MediaType {
+  serie = "serie",
+}
+
+export interface Media {
   id: number;
   documentId: string;
+  type: MediaType;
   name: string;
+  createdAt: string;
   publishedAt: string;
   description?: string;
   thumbnail?: OdysseyImageFile;
+}
+
+export enum MediaContentType {
+  video = "video",
+}
+
+export interface MediaContent {
+  id: number;
+  documentId: string;
+  createdAt: string;
+  publishedAt: string;
+  name: string;
+  description?: string;
+  thumbnail?: OdysseyImageFile;
+}
+
+/* Series */
+export interface Serie extends Media {
+  type: MediaType.serie;
   seasons?: SerieSeason[];
 }
 
@@ -116,14 +141,9 @@ export interface SerieSeason {
   episodes?: SerieEpisode[];
 }
 
-export interface SerieEpisode {
-  id: number;
-  documentId: string;
-  name: string;
-  publishedAt: string;
-  description?: string;
-  thumbnail?: OdysseyImageFile;
-  video?: OdysseyVideoFile;
+export interface SerieEpisode extends MediaContent {
+  type: MediaContentType.video,
+  video: OdysseyVideoFile;
 }
 
 /* Files */
@@ -134,13 +154,13 @@ interface OdysseyFile {
   url: string;
 }
 
-interface OdysseyVideoFile extends OdysseyFile {
+export interface OdysseyVideoFile extends OdysseyFile {
   provider_metadata: {
     guid: string;
   };
 }
 
-interface OdysseyImageFile extends OdysseyFile {
+export interface OdysseyImageFile extends OdysseyFile {
   formats: OdysseyImageFormats;
 }
 

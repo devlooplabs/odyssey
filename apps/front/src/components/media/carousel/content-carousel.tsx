@@ -37,7 +37,13 @@ export function ContentCarousel() {
               key={value}
               className="pl-1 basis-1/3 md:basis-1/4 lg:basis-1/5 xl:basis-1/6"
             >
-              <ContentCard name={value.toString()} textVariant="gradient" />
+              <div className="w-full">
+                <ContentCard
+                  name={value.toString()}
+                  textVariant="gradient"
+                  thumbnail="https://test-ual-mateus.b-cdn.net/medium_photomode_02112023_210212_b5e00c89b6.png"
+                />
+              </div>
             </CarouselItem>
           ))}
         </CarouselContent>

@@ -1,5 +1,5 @@
-import { MediaBanner } from "@/components/content/media/media-banner";
-import { MediaContentCard } from "@/components/content/media/media-content-card";
+import { MediaBanner } from "@/components/media/media/media-banner";
+import { MediaContentCard } from "@/components/media/media/media-content-card";
 import { H2 } from "@/components/typography/headings";
 import { getSerieSeason } from "../../actions";
 import { redirect } from "next/navigation";
