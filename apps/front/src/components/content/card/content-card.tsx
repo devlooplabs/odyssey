@@ -14,19 +14,22 @@ interface ContentCardProps {
 export const ContentCard: React.FC<ContentCardProps> = ({
   name,
   thumbnail,
-  textVariant
+  textVariant,
 }) => {
   return (
-    <Card className="w-[210px] h-[315px] border-none rounded-none overflow-hidden relative">
+    <Card className="w-full aspect-video border-none rounded-none relative bg-gradient-to-t from-primary/40 to-background">
       <Link href="/content">
-        <Image
-          src={thumbnail || placeholder}
-          alt="placeholder"
-          objectFit="cover"
-          draggable={false}
-          sizes="100%"
-          fill
-        />
+        {thumbnail && (
+          <Image
+            src={placeholder}
+            alt="placeholder"
+            style={{
+              objectFit: "contain",
+            }}
+            draggable={false}
+            fill
+          />
+        )}
         <P
           size="lg"
           variant={textVariant}
