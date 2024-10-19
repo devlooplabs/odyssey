@@ -1,13 +1,11 @@
-import { Media } from "@/lib/odyssey/types";
 import {
   Drawer,
   DrawerContent,
-  DrawerDescription,
   DrawerHeader,
-  DrawerTitle,
 } from "../ui/drawer";
 import { MediaDetails } from "./media-details";
 import { MediaBanner } from "./media-banner";
+import { Media } from "@/app/actions/types";
 
 interface MediaDialogProps {
   media: Media;

@@ -7,9 +7,9 @@ import {
 } from "@/components/ui/carousel";
 import { H2 } from "@/components/typography/headings";
 import { cn } from "@/lib/utils";
-import { Media } from "@/lib/odyssey/types";
 import React from "react";
 import { MediaCard } from "./media-card";
+import { Media } from "@/app/actions/types";
 
 interface MediaCarouselProps {
   medias: Media[];

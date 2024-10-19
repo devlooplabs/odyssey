@@ -1,5 +1,6 @@
+import { User } from "@/app/actions/auth/types";
+import { PaymentGateways, Plan, PlanPaymentOption } from "@/app/actions/plans/types";
 import Stripe from "stripe";
-import { PaymentGateways, Plan, PlanPaymentOption, User } from "../odyssey/types";
 
 export class StripeClient {
   private client: Stripe;

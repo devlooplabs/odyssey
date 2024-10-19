@@ -5,9 +5,8 @@ import { useEffect, useState, useTransition } from "react";
 import { PayButton } from "@/components/payment/pay-button";
 import { P } from "@/components/typography/texts";
 import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { paySubscription } from "@/lib/odyssey/payments";
-import { getPlan } from "@/lib/odyssey/plans";
-import { Plan, PlanPaymentOption } from "@/lib/odyssey/types";
+import { Plan, PlanPaymentOption } from "../actions/plans/types";
+import { findPlan, payMembership } from "../actions";
 
 export default function Payment() {
   const planId = useSearchParams().get("planId");
@@ -18,8 +17,8 @@ export default function Payment() {
   useEffect(() => {
     startLoading(async () => {
       if (planId) {
-        const plan = await getPlan(planId);
-        setPlan(plan);
+        const res = await findPlan(planId);
+        if (res.data) setPlan(res.data);
       }
     });
   }, [planId]);
@@ -27,7 +26,7 @@ export default function Payment() {
   const pay = (option: PlanPaymentOption) => {
     startPaying(async () => {
       if (plan) {
-        await paySubscription(option.gateway, plan);
+        await payMembership(option.gateway, plan);
       }
     });
   };

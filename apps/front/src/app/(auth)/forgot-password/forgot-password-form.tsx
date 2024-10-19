@@ -13,7 +13,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import { ForgotPasswordModel, ForgotPasswordSchema } from "../schemas";
+import {
+  ForgotPasswordModel,
+  ForgotPasswordSchema,
+} from "@/app/actions/auth/schemas";
 
 export function ForgotPasswordForm() {
   const [pending, startTransition] = useTransition();

@@ -14,7 +14,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import { ResetPasswordModel, ResetPasswordSchema } from "../schemas";
+import {
+  ResetPasswordModel,
+  ResetPasswordSchema,
+} from "@/app/actions/auth/schemas";
 
 export function ResetPasswordForm() {
   const [pending, startTransition] = useTransition();

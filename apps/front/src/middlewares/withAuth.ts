@@ -1,5 +1,6 @@
 import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 import { Middleware } from "./middlewares";
+import { JWT_COOKIE_NAME } from "@/lib/auth";
 
 export const withAuth: Middleware = (next) => {
   return async (request: NextRequest, _next: NextFetchEvent) => {
@@ -7,7 +8,7 @@ export const withAuth: Middleware = (next) => {
     const routes = ["/payment"];
 
     if (routes.some((path) => pathname.startsWith(path))) {
-      const jwt = request.cookies.get("jwt");
+      const jwt = request.cookies.get(JWT_COOKIE_NAME);
       if (!jwt) {
         const redirectUrl = request.nextUrl.pathname + request.nextUrl.search;
         const url = new URL(`/login`, request.url);

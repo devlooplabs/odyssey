@@ -1,4 +1,4 @@
-import { User } from "@/lib/odyssey/types";
+import { User } from "@/app/actions/auth/types";
 import { createContext, useContext } from "react";
 
 interface AuthContextProps {

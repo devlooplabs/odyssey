@@ -39,5 +39,4 @@ export const ResetPasswordSchema = z
     path: ["confirmPassword"],
   });
 
-  
 export type ResetPasswordModel = z.infer<typeof ResetPasswordSchema>;

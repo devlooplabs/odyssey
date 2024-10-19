@@ -2,9 +2,9 @@
 
 import { useEffect, useState, useTransition } from "react";
 import { PlanCard } from "./components/plan-card";
-import { Plan } from "@/lib/odyssey/types";
 import { H1 } from "@/components/typography/headings";
-import { getPlans } from "@/lib/odyssey/plans";
+import { findPlans } from "@/app/actions";
+import { Plan } from "@/app/actions/plans/types";
 
 export default function PaymentPage() {
   const [plans, setPlans] = useState<Plan[]>([]);
@@ -12,9 +12,9 @@ export default function PaymentPage() {
 
   useEffect(() => {
     startFetching(async () => {
-      const plans = await getPlans();
-      if (plans) setPlans(plans);
-    })
+      const res = await findPlans();
+      if (res.data) setPlans(res.data);
+    });
   }, []);
 
   return (

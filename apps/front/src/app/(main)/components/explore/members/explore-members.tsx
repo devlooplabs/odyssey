@@ -1,9 +1,9 @@
-import { ContentCarousel } from "@/components/media/carousel/content-carousel";
+// import { ContentCarousel } from "@/components/media/carousel/content-carousel";
 
 export function ExploreMembers() {
   return (
     <div>
-      <ContentCarousel />
+      members
     </div>
   );
 }

@@ -13,11 +13,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import { signin } from "../actions";
-import { SignInModel, SignInSchema } from "../schemas";
 import { useAuth } from "@/components/auth/auth-context";
 import { P } from "@/components/typography/texts";
 import Link from "next/link";
+import { login } from "@/app/actions";
+import { SignInModel, SignInSchema } from "@/app/actions/auth/schemas";
 
 export function SignInForm() {
   const { onLogin } = useAuth();
@@ -30,11 +30,11 @@ export function SignInForm() {
 
   function onSubmit(values: SignInModel) {
     startTransition(async () => {
-      const { user, error } = await signin(values);
-      if (user) {
-        await onLogin();
+      const { error } = await login(values);
+      if (error) {
+        setError(error.message);
       } else {
-        setError(error);
+        await onLogin();
       }
     });
   }

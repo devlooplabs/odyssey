@@ -1,5 +1,7 @@
 "use client";
 
+import { findSerieEpisodes } from "@/app/actions";
+import { Serie, SerieEpisode } from "@/app/actions/series/types";
 import { H2 } from "@/components/typography/headings";
 import {
   Select,
@@ -8,9 +10,9 @@ import {
   SelectLabel,
   SelectTrigger,
 } from "@/components/ui/select";
-import { Serie } from "@/lib/odyssey/types";
 import { SelectGroup, SelectValue } from "@radix-ui/react-select";
-import React, { useState, useTransition } from "react";
+import React, { useEffect, useState, useTransition } from "react";
+import { SerieMediaDetailsEpisode } from "./serie-media-details-episode";
 
 interface SerieMediaDetailsProps {
   serie: Serie;
@@ -24,13 +26,18 @@ export const SerieMediaDetails: React.FC<SerieMediaDetailsProps> = ({
     : undefined;
 
   const [season, setSeason] = useState(defaultSeason);
+  const [episodes, setEpisodes] = useState<SerieEpisode[]>([]);
   const [loading, startLoading] = useTransition();
 
-  function getEpisodes() {
+  useEffect(() => {
     startLoading(async () => {
-      // const eps = getSeaso
-    })
-  }
+      const res = await findSerieEpisodes({
+        seasonId: season,
+      });
+
+      if (res.data) setEpisodes(res.data);
+    });
+  }, [season]);
 
   return (
     <div>
@@ -53,7 +60,11 @@ export const SerieMediaDetails: React.FC<SerieMediaDetailsProps> = ({
           </SelectContent>
         </Select>
       </div>
-      <div></div>
+      <div>
+        {episodes.map((ep) => (
+          <SerieMediaDetailsEpisode episode={ep} />
+        ))}
+      </div>
     </div>
   );
 };

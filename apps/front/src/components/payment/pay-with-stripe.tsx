@@ -1,7 +1,6 @@
 import React, { useTransition } from "react";
 import { Button } from "../ui/button";
-import { PaymentGateways, Plan, PlanPaymentOption } from "@/lib/odyssey/types";
-import { paySubscription } from "@/lib/odyssey/payments";
+import { PaymentGateways, PlanPaymentOption } from "@/app/actions/plans/types";
 
 interface StripePaymentOption extends PlanPaymentOption {
   gateway: PaymentGateways.stripe;

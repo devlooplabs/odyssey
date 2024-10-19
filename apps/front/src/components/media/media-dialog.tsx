@@ -1,14 +1,11 @@
-import { Media } from "@/lib/odyssey/types";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogHeader,
-  DialogTitle,
 } from "../ui/dialog";
 import { MediaDetails } from "./media-details";
-import Image from "next/image";
 import { MediaBanner } from "./media-banner";
+import { Media } from "@/app/actions/types";
 
 interface MediaDialogProps {
   media: Media;

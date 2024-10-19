@@ -1,9 +1,9 @@
-import { Media } from "@/lib/odyssey/types";
 import React, { useState } from "react";
 import { MediaThumbnail } from "./media-thumbnail";
 import { MediaDialog } from "./media-dialog";
 import { MediaDrawer } from "./media-drawer";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { Media } from "@/app/actions/types";
 
 interface MediaCardProps {
   media: Media;

@@ -1,6 +1,6 @@
 import Image from "next/image";
-import { Media } from "@/lib/odyssey/types";
 import { P } from "../typography/texts";
+import { Media } from "@/app/actions/types";
 
 interface MediaThumbnailProps {
   media: Media;

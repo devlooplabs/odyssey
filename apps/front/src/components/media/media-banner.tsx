@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { H1 } from "../typography/headings";
 import { P } from "../typography/texts";
-import { Media } from "@/lib/odyssey/types";
+import { Media } from "@/app/actions/types";
 
 interface MediaBannerProps {
   media: Media;

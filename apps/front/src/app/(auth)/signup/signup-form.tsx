@@ -13,13 +13,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import { signup } from "../actions";
-import { SignUpModel, SignUpSchema } from "../schemas";
-import { useRouter } from "next/navigation";
 import { useAuth } from "@/components/auth/auth-context";
+import { SignUpModel, SignUpSchema } from "@/app/actions/auth/schemas";
+import { signup } from "@/app/actions";
 
 export function SignUpForm() {
-  const router = useRouter();
   const { onLogin } = useAuth();
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string>();
@@ -30,11 +28,11 @@ export function SignUpForm() {
 
   function onSubmit(values: SignUpModel) {
     startTransition(async () => {
-      const { user, error } = await signup(values);
-      if (user) {
-        await onLogin();
+      const { error } = await signup(values);
+      if (error) {
+        setError(error.message);
       } else {
-        setError(error);
+        await onLogin();
       }
     });
   }

@@ -2,10 +2,9 @@
 
 import { useState, useEffect, useTransition } from "react";
 import { AuthContext } from "./auth-context";
-import { User } from "@/lib/odyssey/types";
-import { getAuth, logout } from "@/lib/auth/auth";
-import { RoleTypes } from "@/lib/auth/utils";
 import { useRouter, useSearchParams } from "next/navigation";
+import { RoleType, User } from "@/app/actions/auth/types";
+import { getMe, logout } from "@/app/actions";
 
 export function AuthProvider({
   children,
@@ -16,7 +15,7 @@ export function AuthProvider({
   const [user, setUser] = useState<User | null>(null);
 
   async function load() {
-    const { user } = await getAuth();
+    const { user } = await getMe();
     setUser(user);
   }
 
@@ -40,7 +39,7 @@ export function AuthProvider({
 
   const isMember = () => {
     return (
-      user?.membership?.active === true && user?.role?.type == RoleTypes.member
+      user?.membership?.active === true && user?.role?.type == RoleType.member
     );
   };
 

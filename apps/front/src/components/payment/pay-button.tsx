@@ -1,6 +1,6 @@
-import { PaymentGateways, Plan, PlanPaymentOption } from "@/lib/odyssey/types";
 import React from "react";
 import { isStripePaymentOption, PayWithStripe } from "./pay-with-stripe";
+import { PlanPaymentOption } from "@/app/actions/plans/types";
 
 interface PayButtonProps {
   option: PlanPaymentOption;

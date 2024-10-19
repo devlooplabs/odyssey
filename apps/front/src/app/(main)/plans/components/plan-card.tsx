@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { Plan } from "@/lib/odyssey/types";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -13,6 +12,7 @@ import {
 import { useRouter } from "next/navigation";
 import { Features } from "./plan-features";
 import { P } from "@/components/typography/texts";
+import { Plan } from "@/app/actions/plans/types";
 
 interface PlanCardProps {
   plan: Plan;
