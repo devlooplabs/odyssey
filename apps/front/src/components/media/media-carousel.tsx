@@ -26,8 +26,8 @@ export const MediaCarousel: React.FC<MediaCarouselProps> = ({
   return (
     <div className="w-full space-y-4">
       {title && (
-        <div className="flex justify-center">
-          <H2 variant="gradient">Séries</H2>
+        <div className="mx-10">
+          <H2 variant="gradient">{title}</H2>
         </div>
       )}
       <Carousel

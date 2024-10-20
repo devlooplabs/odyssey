@@ -18,7 +18,7 @@ export default function PaymentPage() {
   }, []);
 
   return (
-    <div className="container py-8 flex flex-col items-center gap-8">
+    <div className="container py-8 flex flex-col items-center gap-12">
       <H1>Escolha seu plano</H1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {plans.map((plan) => (

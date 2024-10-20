@@ -18,8 +18,12 @@ export default function Series() {
   }, []);
 
   return (
-    <div className="space-y-8">
-      {series ? <MediaCarousel medias={series} /> : <div>nada</div>}
+    <div className="space-y-8 pb-8">
+      {series ? (
+        <MediaCarousel title="Destaques" medias={series} />
+      ) : (
+        <div>nada</div>
+      )}
     </div>
   );
 }
