@@ -10,7 +10,6 @@ export default factories.createCoreController(
     async find(ctx) {
       const { data, meta } = await super.find(ctx);
 
-      console.log(ctx.state.auth.ability);
       const credentials = ctx.state.auth.credentials;
       if (!credentials || credentials.role.type !== "member") {
         data.forEach((item) => {

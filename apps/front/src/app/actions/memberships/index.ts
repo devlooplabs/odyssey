@@ -14,7 +14,6 @@ export async function activateMembership(
   params: ActivateMembershipParams
 ) {
   const client = getOdysseyClient();
-
   const url = `/api/membership/${userId}/activate`;
   const res = await client.put<Membership>(url, params);
   return res.data;
