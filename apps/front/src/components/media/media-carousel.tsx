@@ -12,18 +12,24 @@ import { MediaCard } from "./media-card";
 import { Media } from "@/app/actions/types";
 
 interface MediaCarouselProps {
+  title?: string;
   medias: Media[];
 }
 
-export const MediaCarousel: React.FC<MediaCarouselProps> = ({ medias }) => {
+export const MediaCarousel: React.FC<MediaCarouselProps> = ({
+  title,
+  medias,
+}) => {
   const arrowCls =
     "hidden md:flex rounded-none border-none hover:bg-transparent hover:text-accent";
 
   return (
     <div className="w-full space-y-4">
-      <div className="flex justify-center">
-        <H2 variant="gradient">Séries</H2>
-      </div>
+      {title && (
+        <div className="flex justify-center">
+          <H2 variant="gradient">Séries</H2>
+        </div>
+      )}
       <Carousel
         opts={{
           loop: true,

@@ -11,11 +11,11 @@ export function MemberProvider({
   const router = useRouter();
   const { user } = useAuth();
 
-  useEffect(() => {
-    if (user && user.role.type !== "member") {
-      router.push("/plans");
-    }
-  }, [router, user]);
+  // useEffect(() => {
+  //   if (user && user.role.type !== "member") {
+  //     router.push("/plans");
+  //   }
+  // }, [router, user]);
 
   return (
     <MemberContext.Provider

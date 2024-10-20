@@ -2,16 +2,17 @@ import React from "react";
 import { cn } from "@/lib/utils";
 import { cva, VariantProps } from "class-variance-authority";
 
-export const textVariants = cva("", {
+export const textVariants = cva("font-normal", {
   variants: {
     variant: {
       default: "text-foreground",
       gradient:
         "bg-gradient-to-r from-primary via-white via-30% to-white to-90% inline-block text-transparent bg-clip-text",
-      lead: "text-xl text-muted-foreground"
+      lead: "text-xl text-muted-foreground",
     },
     size: {
-      default: "",
+      default: "text-md",
+      xs: "text-xs",
       sm: "text-sm font-medium leading-none",
       lg: "text-lg font-semibold",
       xl: "text-3xl font-bold",

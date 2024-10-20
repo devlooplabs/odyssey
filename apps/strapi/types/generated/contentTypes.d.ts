@@ -697,7 +697,7 @@ export interface ApiSerieSerie extends Struct.CollectionTypeSchema {
     thumbnail: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     description: Schema.Attribute.Text;
     seasons: Schema.Attribute.Relation<
-      'oneToOne',
+      'oneToMany',
       'api::serie-season.serie-season'
     >;
     category: Schema.Attribute.Relation<
@@ -737,8 +737,7 @@ export interface ApiSerieEpisodeSerieEpisode
     season: Schema.Attribute.Relation<
       'manyToOne',
       'api::serie-season.serie-season'
-    > &
-      Schema.Attribute.Required;
+    >;
     video: Schema.Attribute.Media<'videos'> & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
@@ -768,15 +767,15 @@ export interface ApiSerieSeasonSerieSeason extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    name: Schema.Attribute.String & Schema.Attribute.Required;
+    name: Schema.Attribute.String;
     sequence: Schema.Attribute.Integer & Schema.Attribute.Required;
     description: Schema.Attribute.Text;
     thumbnail: Schema.Attribute.Media<'images' | 'files'>;
-    serie: Schema.Attribute.Relation<'oneToOne', 'api::serie.serie'>;
     episodes: Schema.Attribute.Relation<
       'oneToMany',
       'api::serie-episode.serie-episode'
     >;
+    serie: Schema.Attribute.Relation<'manyToOne', 'api::serie.serie'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

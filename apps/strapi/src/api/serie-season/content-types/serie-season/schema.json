@@ -14,7 +14,7 @@
   "attributes": {
     "name": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "sequence": {
       "type": "integer",
@@ -32,17 +32,17 @@
         "files"
       ]
     },
-    "serie": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::serie.serie",
-      "inversedBy": "seasons"
-    },
     "episodes": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::serie-episode.serie-episode",
       "mappedBy": "season"
+    },
+    "serie": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::serie.serie",
+      "inversedBy": "seasons"
     }
   }
 }

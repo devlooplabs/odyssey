@@ -19,12 +19,7 @@ export default function Series() {
 
   return (
     <div className="space-y-8">
-      <div className="w-full flex justify-center">
-        <H2 variant="gradient">Séries em destaque</H2>
-      </div>
-      <div className="w-full flex flex-wrap gap-8 justify-center">
-        {series ? <MediaCarousel medias={series} /> : <div>nada</div>}
-      </div>
+      {series ? <MediaCarousel medias={series} /> : <div>nada</div>}
     </div>
   );
 }

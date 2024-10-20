@@ -49,7 +49,6 @@ export const SerieMediaDetails: React.FC<SerieMediaDetailsProps> = ({
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
-              <SelectLabel>Temporada</SelectLabel>
               {serie.seasons &&
                 serie.seasons.map((season) => (
                   <SelectItem key={season.documentId} value={season.documentId}>

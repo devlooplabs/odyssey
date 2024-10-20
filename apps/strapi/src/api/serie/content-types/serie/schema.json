@@ -29,7 +29,7 @@
     },
     "seasons": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "oneToMany",
       "target": "api::serie-season.serie-season",
       "mappedBy": "serie"
     },

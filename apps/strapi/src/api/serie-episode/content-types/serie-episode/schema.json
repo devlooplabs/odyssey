@@ -27,20 +27,23 @@
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": ["images"]
+      "allowedTypes": [
+        "images"
+      ]
     },
     "season": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::serie-season.serie-season",
-      "inversedBy": "episodes",
-      "required": true
+      "inversedBy": "episodes"
     },
     "video": {
       "type": "media",
       "multiple": false,
       "required": true,
-      "allowedTypes": ["videos"]
+      "allowedTypes": [
+        "videos"
+      ]
     }
   }
 }
