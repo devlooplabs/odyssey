@@ -7,6 +7,7 @@ import { P } from "@/components/typography/texts";
 import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plan, PlanPaymentOption } from "../actions/plans/types";
 import { findPlan, payMembership } from "../actions";
+import { Money } from "@/components/payment/money";
 
 export default function Payment() {
   const planId = useSearchParams().get("planId");
@@ -31,6 +32,8 @@ export default function Payment() {
     });
   };
 
+  if (!plan) return null;
+
   return (
     <>
       <CardHeader>
@@ -40,12 +43,12 @@ export default function Payment() {
         <div>
           <P>
             Você está assinando o plano{" "}
-            <span className="font-bold">{plan?.name}</span> por
+            <span className="font-bold">{plan.name}</span> por
           </P>
-          <P size="lg">{plan?.valueText}/mês</P>
+          <Money currency={plan.currency} value={plan.price} size="xl" />
         </div>
         <div className="space-y-4">
-          {plan?.options.map((option) => (
+          {plan.paymentOptions.map((option) => (
             <PayButton
               key={option.documentId}
               option={option}

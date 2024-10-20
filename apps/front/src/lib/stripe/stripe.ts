@@ -32,7 +32,7 @@ export class StripeClient {
   }
 
   async createSession(user: User, plan: Plan) {
-    const option = plan.options.find(
+    const option = plan.paymentOptions.find(
       (option) => option.gateway === PaymentGateways.stripe
     );
     if (!option) throw new Error("Plan doesn't have a Stripe payment option.");

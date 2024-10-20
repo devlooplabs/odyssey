@@ -19,20 +19,24 @@
     "thumbnail": {
       "type": "media",
       "multiple": false,
-      "required": false,
+      "required": true,
       "allowedTypes": [
-        "images",
-        "files"
+        "images"
       ]
     },
     "description": {
-      "type": "string"
+      "type": "text"
     },
     "seasons": {
       "type": "relation",
-      "relation": "oneToMany",
+      "relation": "oneToOne",
       "target": "api::serie-season.serie-season",
       "mappedBy": "serie"
+    },
+    "category": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::media-category.media-category"
     }
   }
 }

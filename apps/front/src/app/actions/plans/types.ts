@@ -6,10 +6,10 @@ export enum PaymentGateways {
 export interface Plan {
   documentId: string;
   name: string;
-  features?: string;
-  valueText: string;
-  valueDescription?: string;
-  options: PlanPaymentOption[];
+  features: string;
+  currency: string;
+  price: number;
+  paymentOptions: PlanPaymentOption[];
 }
 
 export interface PlanPaymentOption {

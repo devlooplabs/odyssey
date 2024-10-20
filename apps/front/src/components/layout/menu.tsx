@@ -70,7 +70,7 @@ export function Menu() {
               Home
             </Link>
             {items.map((item) => (
-              <Link href={item.path} className={mobileLinkCls}>
+              <Link key={item.path} href={item.path} className={mobileLinkCls}>
                 {item.title}
               </Link>
             ))}

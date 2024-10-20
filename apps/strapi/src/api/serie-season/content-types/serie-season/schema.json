@@ -21,7 +21,7 @@
       "required": true
     },
     "description": {
-      "type": "string"
+      "type": "text"
     },
     "thumbnail": {
       "type": "media",
@@ -34,7 +34,7 @@
     },
     "serie": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "oneToOne",
       "target": "api::serie.serie",
       "inversedBy": "seasons"
     },

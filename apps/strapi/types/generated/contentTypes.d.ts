@@ -450,6 +450,7 @@ export interface PluginUsersPermissionsUser
     displayName: 'User';
   };
   options: {
+    timestamps: true;
     draftAndPublish: false;
   };
   attributes: {
@@ -478,10 +479,6 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    membership: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::user-membership.user-membership'
-    >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -493,6 +490,103 @@ export interface PluginUsersPermissionsUser
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'plugin::users-permissions.user'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiBillingCycleBillingCycle
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'billing_cycles';
+  info: {
+    singularName: 'billing-cycle';
+    pluralName: 'billing-cycles';
+    displayName: 'Billing Cycle';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    months: Schema.Attribute.Integer &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+          max: 12;
+        },
+        number
+      >;
+    description: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::billing-cycle.billing-cycle'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiLiveLive extends Struct.CollectionTypeSchema {
+  collectionName: 'lives';
+  info: {
+    singularName: 'live';
+    pluralName: 'lives';
+    displayName: 'Live';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    description: Schema.Attribute.Text;
+    thumbnail: Schema.Attribute.Media<'images'>;
+    video: Schema.Attribute.Media<'videos'>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::live.live'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiMediaCategoryMediaCategory
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'media_categories';
+  info: {
+    singularName: 'media-category';
+    pluralName: 'media-categories';
+    displayName: 'Media Category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    description: Schema.Attribute.Text;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::media-category.media-category'
     > &
       Schema.Attribute.Private;
   };
@@ -510,18 +604,35 @@ export interface ApiPlanPlan extends Struct.CollectionTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
-    slug: Schema.Attribute.UID<'name'> & Schema.Attribute.Required;
     name: Schema.Attribute.String & Schema.Attribute.Required;
-    valueText: Schema.Attribute.String;
+    role: Schema.Attribute.Relation<
+      'oneToOne',
+      'plugin::users-permissions.role'
+    > &
+      Schema.Attribute.Required;
+    currency: Schema.Attribute.String & Schema.Attribute.Required;
+    price: Schema.Attribute.Decimal &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMax<
+        {
+          min: 1;
+        },
+        number
+      >;
     features: Schema.Attribute.Text &
+      Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 128;
+        maxLength: 256;
       }>;
-    options: Schema.Attribute.Relation<
+    billingCycle: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::billing-cycle.billing-cycle'
+    >;
+    paymentOptions: Schema.Attribute.Relation<
       'oneToMany',
       'api::plan-payment-option.plan-payment-option'
-    >;
-    valueDescription: Schema.Attribute.String;
+    > &
+      Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -583,11 +694,15 @@ export interface ApiSerieSerie extends Struct.CollectionTypeSchema {
   };
   attributes: {
     name: Schema.Attribute.String & Schema.Attribute.Required;
-    thumbnail: Schema.Attribute.Media<'images' | 'files'>;
-    description: Schema.Attribute.String;
+    thumbnail: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    description: Schema.Attribute.Text;
     seasons: Schema.Attribute.Relation<
-      'oneToMany',
+      'oneToOne',
       'api::serie-season.serie-season'
+    >;
+    category: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::media-category.media-category'
     >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
@@ -616,14 +731,15 @@ export interface ApiSerieEpisodeSerieEpisode
   };
   attributes: {
     name: Schema.Attribute.String & Schema.Attribute.Required;
-    description: Schema.Attribute.String;
     sequence: Schema.Attribute.Integer & Schema.Attribute.Required;
+    description: Schema.Attribute.Text;
     thumbnail: Schema.Attribute.Media<'images'>;
-    video: Schema.Attribute.Media<'videos'> & Schema.Attribute.Required;
     season: Schema.Attribute.Relation<
       'manyToOne',
       'api::serie-season.serie-season'
-    >;
+    > &
+      Schema.Attribute.Required;
+    video: Schema.Attribute.Media<'videos'> & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -654,9 +770,9 @@ export interface ApiSerieSeasonSerieSeason extends Struct.CollectionTypeSchema {
   attributes: {
     name: Schema.Attribute.String & Schema.Attribute.Required;
     sequence: Schema.Attribute.Integer & Schema.Attribute.Required;
-    description: Schema.Attribute.String;
+    description: Schema.Attribute.Text;
     thumbnail: Schema.Attribute.Media<'images' | 'files'>;
-    serie: Schema.Attribute.Relation<'manyToOne', 'api::serie.serie'>;
+    serie: Schema.Attribute.Relation<'oneToOne', 'api::serie.serie'>;
     episodes: Schema.Attribute.Relation<
       'oneToMany',
       'api::serie-episode.serie-episode'
@@ -672,46 +788,6 @@ export interface ApiSerieSeasonSerieSeason extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::serie-season.serie-season'
-    > &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiUserMembershipUserMembership
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'users_membership';
-  info: {
-    singularName: 'user-membership';
-    pluralName: 'users-membership';
-    displayName: 'User Membership';
-    description: '';
-  };
-  options: {
-    draftAndPublish: false;
-  };
-  attributes: {
-    user: Schema.Attribute.Relation<
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
-    active: Schema.Attribute.Boolean &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<false>;
-    gateway: Schema.Attribute.Enumeration<['stripe', 'mercadopago']> &
-      Schema.Attribute.Required;
-    gatewayData: Schema.Attribute.JSON;
-    gatewayId: Schema.Attribute.String;
-    createdAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    publishedAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::user-membership.user-membership'
     > &
       Schema.Attribute.Private;
   };
@@ -1099,12 +1175,14 @@ declare module '@strapi/strapi' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::billing-cycle.billing-cycle': ApiBillingCycleBillingCycle;
+      'api::live.live': ApiLiveLive;
+      'api::media-category.media-category': ApiMediaCategoryMediaCategory;
       'api::plan.plan': ApiPlanPlan;
       'api::plan-payment-option.plan-payment-option': ApiPlanPaymentOptionPlanPaymentOption;
       'api::serie.serie': ApiSerieSerie;
       'api::serie-episode.serie-episode': ApiSerieEpisodeSerieEpisode;
       'api::serie-season.serie-season': ApiSerieSeasonSerieSeason;
-      'api::user-membership.user-membership': ApiUserMembershipUserMembership;
       'admin::permission': AdminPermission;
       'admin::user': AdminUser;
       'admin::role': AdminRole;

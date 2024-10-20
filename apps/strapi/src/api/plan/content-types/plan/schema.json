@@ -12,30 +12,41 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "slug": {
-      "type": "uid",
-      "required": true,
-      "targetField": "name"
-    },
     "name": {
       "type": "string",
       "required": true
     },
-    "valueText": {
-      "type": "string"
+    "role": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.role",
+      "required": true
+    },
+    "currency": {
+      "type": "string",
+      "required": true,
+      "regex": "^[A-Z]{3}$"
+    },
+    "price": {
+      "type": "decimal",
+      "required": true,
+      "min": 1
     },
     "features": {
       "type": "text",
-      "required": false,
-      "maxLength": 128
+      "required": true,
+      "maxLength": 256
     },
-    "options": {
+    "billingCycle": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::billing-cycle.billing-cycle"
+    },
+    "paymentOptions": {
       "type": "relation",
       "relation": "oneToMany",
-      "target": "api::plan-payment-option.plan-payment-option"
-    },
-    "valueDescription": {
-      "type": "string"
+      "target": "api::plan-payment-option.plan-payment-option",
+      "required": true
     }
   }
 }

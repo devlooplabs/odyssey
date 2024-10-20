@@ -16,34 +16,31 @@
       "type": "string",
       "required": true
     },
-    "description": {
-      "type": "string"
-    },
     "sequence": {
       "type": "integer",
       "required": true
+    },
+    "description": {
+      "type": "text"
     },
     "thumbnail": {
       "type": "media",
       "multiple": false,
       "required": false,
-      "allowedTypes": [
-        "images"
-      ]
-    },
-    "video": {
-      "type": "media",
-      "multiple": false,
-      "required": true,
-      "allowedTypes": [
-        "videos"
-      ]
+      "allowedTypes": ["images"]
     },
     "season": {
       "type": "relation",
       "relation": "manyToOne",
       "target": "api::serie-season.serie-season",
-      "inversedBy": "episodes"
+      "inversedBy": "episodes",
+      "required": true
+    },
+    "video": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": ["videos"]
     }
   }
 }

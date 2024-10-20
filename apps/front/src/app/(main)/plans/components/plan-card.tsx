@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import { Features } from "./plan-features";
 import { P } from "@/components/typography/texts";
 import { Plan } from "@/app/actions/plans/types";
+import { Money } from "@/components/payment/money";
 
 interface PlanCardProps {
   plan: Plan;
@@ -34,8 +35,7 @@ export const PlanCard: React.FC<PlanCardProps> = ({ plan }) => {
       <CardContent className="space-y-8">
         <Features features={plan.features} />
         <div className="space-y-1">
-          <P size="xl">{plan.valueText} / mês</P>
-          {plan.valueDescription && <small>{plan.valueDescription}</small>}
+          <Money currency={plan.currency} value={plan.price} size="xl" />
         </div>
       </CardContent>
       <CardFooter className="flex flex-col justify-center">
