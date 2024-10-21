@@ -71,3 +71,25 @@ async function handleStripe(user: User, plan: Plan): Promise<Payment> {
 
   return payment;
 }
+
+export async function confirmPayment(
+  externalId: string,
+  customerExternalId: string
+) {
+  const client = getOdysseyClient(process.env.ODYSSEY_STRAPI_TOKEN);
+  const url = "/api/payments/confirm";
+  const res = await client.put<OdysseyBaseResponse<Payment>>(url, {
+    externalId,
+    customerExternalId,
+  });
+  return res.data;
+}
+
+export async function revokeMembership(customerExternalId: string) {
+  const client = getOdysseyClient(process.env.ODYSSEY_STRAPI_TOKEN);
+  const url = "/api/payments/revoke";
+  const res = await client.put<OdysseyBaseResponse<Payment>>(url, {
+    customerExternalId,
+  });
+  return res.data;
+}

@@ -49,6 +49,10 @@
     "url": {
       "type": "text",
       "required": true
+    },
+    "customerExternalId": {
+      "type": "string",
+      "unique": true
     }
   }
 }

@@ -10,7 +10,7 @@ export default factories.createCoreController(
     async confirm(ctx) {
       await this.validateQuery(ctx);
 
-      const { externalId, data } = ctx.request.body;
+      const { externalId, customerExternalId, data } = ctx.request.body;
       const payment = await strapi.documents("api::payment.payment").findFirst({
         filters: {
           externalId: {
@@ -39,6 +39,7 @@ export default factories.createCoreController(
         documentId: payment.documentId,
         data: {
           confirmed: true,
+          customerExternalId: customerExternalId,
           data: data,
         },
       });
@@ -50,7 +51,7 @@ export default factories.createCoreController(
 
     async revoke(ctx) {
       await this.validateQuery(ctx);
-      const { userId } = ctx.request.body;
+      const { userId, customerExternalId } = ctx.request.body;
 
       const role = await strapi
         .documents("plugin::users-permissions.role")
@@ -62,15 +63,24 @@ export default factories.createCoreController(
           },
         });
 
-      await strapi
-        .documents("plugin::users-permissions.user")
-        .update({
-          documentId: userId,
-          data: {
-            member: false,
-            role: role.documentId
+      const payment = await strapi.documents("api::payment.payment").findFirst({
+        filters: {
+          customerExternalId: {
+            $eq: customerExternalId,
           },
-        });
+        },
+        populate: ["user"],
+      });
+
+      console.log(payment);
+
+      await strapi.documents("plugin::users-permissions.user").update({
+        documentId: payment.user.documentId,
+        data: {
+          member: false,
+          role: role.documentId,
+        },
+      });
 
       return this.transformResponse({ success: true });
     },

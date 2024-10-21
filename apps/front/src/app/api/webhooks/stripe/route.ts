@@ -1,8 +1,7 @@
 import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
 import stripe from "@/lib/stripe";
-import { activateMembership, revokeGatewayMembership } from "@/app/actions";
-import { PaymentGateways } from "@/app/actions/plans/types";
+import { confirmPayment, revokeMembership } from "@/app/actions/payments";
 
 export async function POST(request: NextRequest) {
   const body = await request.text();
@@ -18,19 +17,14 @@ export async function POST(request: NextRequest) {
   try {
     switch (event.type) {
       case "checkout.session.completed": {
-        await activateMembership(
-          event.data.object.client_reference_id!,
-          {
-            gateway: PaymentGateways.stripe,
-            gatewayId: event.data.object.customer as string,
-          }
+        await confirmPayment(
+          event.data.object.id,
+          event.data.object.customer as string
         );
         break;
       }
       case "customer.subscription.deleted": {
-        await revokeGatewayMembership(
-          event.data.object.customer as string
-        );
+        await revokeMembership(event.data.object.customer as string);
         break;
       }
       default:

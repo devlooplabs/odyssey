@@ -620,6 +620,7 @@ export interface ApiPaymentPayment extends Struct.CollectionTypeSchema {
     data: Schema.Attribute.JSON;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     url: Schema.Attribute.Text & Schema.Attribute.Required;
+    customerExternalId: Schema.Attribute.String & Schema.Attribute.Unique;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
