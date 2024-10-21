@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "payments",
+  "info": {
+    "singularName": "payment",
+    "pluralName": "payments",
+    "displayName": "Payment",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "payments",
+      "required": true
+    },
+    "plan": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::plan.plan",
+      "required": true
+    },
+    "gateway": {
+      "type": "enumeration",
+      "enum": [
+        "stripe",
+        "mercadopago"
+      ],
+      "required": true
+    },
+    "externalId": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "data": {
+      "type": "json"
+    },
+    "confirmed": {
+      "type": "boolean",
+      "default": false,
+      "required": false
+    },
+    "url": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

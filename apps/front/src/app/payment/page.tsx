@@ -6,7 +6,7 @@ import { PayButton } from "@/components/payment/pay-button";
 import { P } from "@/components/typography/texts";
 import { CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Plan, PlanPaymentOption } from "../actions/plans/types";
-import { findPlan, payMembership } from "../actions";
+import { createPayment, findPlan } from "../actions";
 import { Money } from "@/components/payment/money";
 
 export default function Payment() {
@@ -27,7 +27,7 @@ export default function Payment() {
   const pay = (option: PlanPaymentOption) => {
     startPaying(async () => {
       if (plan) {
-        await payMembership(option.gateway, plan);
+        await createPayment(plan, option.gateway);
       }
     });
   };

@@ -40,13 +40,14 @@ export const payMembership = async (gateway: PaymentGateways, plan: Plan) => {
   }
 
   const { user } = await getMe();
-  if (!user || user.membership?.active) {
+  if (!user || user.member) {
     return null;
   }
 
   let redirectUrl = null;
   if (gateway === "stripe") {
     const session = await stripe.createSession(user, plan);
+    console.log(session);
     redirectUrl = session.url!;
   } else {
     redirectUrl = "";

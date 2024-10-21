@@ -2,7 +2,7 @@ import { JWT_COOKIE_NAME } from "@/lib/auth";
 import axios from "axios";
 import { cookies } from "next/headers";
 
-export function getOdysseyClient() {
+export function getOdysseyClient(token?: string) {
   const instance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_ODYSSEY_URL,
   });
@@ -15,9 +15,9 @@ export function getOdysseyClient() {
     return Promise.reject(error);
   });
 
-  const token = cookies().get(JWT_COOKIE_NAME)?.value;
-  if (token) {
-    instance.defaults.headers.common.Authorization = `Bearer ${token}`;
+  const jwt = token || cookies().get(JWT_COOKIE_NAME)?.value;
+  if (jwt) {
+    instance.defaults.headers.common.Authorization = `Bearer ${jwt}`;
   }
 
   return instance;

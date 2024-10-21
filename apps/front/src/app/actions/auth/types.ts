@@ -9,7 +9,7 @@ export interface User {
   email: string;
   username: string;
   role: Role;
-  membership?: Membership;
+  member: boolean;
 }
 
 export enum RoleType {

@@ -450,7 +450,6 @@ export interface PluginUsersPermissionsUser
     displayName: 'User';
   };
   options: {
-    timestamps: true;
     draftAndPublish: false;
   };
   attributes: {
@@ -479,6 +478,8 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    payments: Schema.Attribute.Relation<'oneToMany', 'api::payment.payment'>;
+    member: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -587,6 +588,49 @@ export interface ApiMediaCategoryMediaCategory
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::media-category.media-category'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPaymentPayment extends Struct.CollectionTypeSchema {
+  collectionName: 'payments';
+  info: {
+    singularName: 'payment';
+    pluralName: 'payments';
+    displayName: 'Payment';
+    description: '';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    user: Schema.Attribute.Relation<
+      'manyToOne',
+      'plugin::users-permissions.user'
+    > &
+      Schema.Attribute.Required;
+    plan: Schema.Attribute.Relation<'oneToOne', 'api::plan.plan'> &
+      Schema.Attribute.Required;
+    gateway: Schema.Attribute.Enumeration<['stripe', 'mercadopago']> &
+      Schema.Attribute.Required;
+    externalId: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    data: Schema.Attribute.JSON;
+    confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    url: Schema.Attribute.Text & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::payment.payment'
     > &
       Schema.Attribute.Private;
   };
@@ -1177,6 +1221,7 @@ declare module '@strapi/strapi' {
       'api::billing-cycle.billing-cycle': ApiBillingCycleBillingCycle;
       'api::live.live': ApiLiveLive;
       'api::media-category.media-category': ApiMediaCategoryMediaCategory;
+      'api::payment.payment': ApiPaymentPayment;
       'api::plan.plan': ApiPlanPlan;
       'api::plan-payment-option.plan-payment-option': ApiPlanPaymentOptionPlanPaymentOption;
       'api::serie.serie': ApiSerieSerie;
