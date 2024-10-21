@@ -47,5 +47,32 @@ export default factories.createCoreController(
 
       return this.transformResponse(sanitized);
     },
+
+    async revoke(ctx) {
+      await this.validateQuery(ctx);
+      const { userId } = ctx.request.body;
+
+      const role = await strapi
+        .documents("plugin::users-permissions.role")
+        .findFirst({
+          filters: {
+            type: {
+              $eq: "authenticated",
+            },
+          },
+        });
+
+      await strapi
+        .documents("plugin::users-permissions.user")
+        .update({
+          documentId: userId,
+          data: {
+            member: false,
+            role: role.documentId
+          },
+        });
+
+      return this.transformResponse({ success: true });
+    },
   })
 );
