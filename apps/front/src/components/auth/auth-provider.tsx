@@ -39,7 +39,7 @@ export function AuthProvider({
 
   const isMember = () => {
     return (
-      user?.membership?.active === true && user?.role?.type == RoleType.member
+      user?.member === true && user?.role?.type == RoleType.member
     );
   };
 

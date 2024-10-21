@@ -16,7 +16,7 @@ export const MediaCard: React.FC<MediaCardProps> = ({ media }) => {
   return (
     <>
       <div className="w-full" role="button" onClick={() => setOpen(true)}>
-        <MediaThumbnail media={media} />
+        <MediaThumbnail name={media.name} thumbnail={media.thumbnail} />
       </div>
       {isDesktop ? (
         <MediaDialog media={media} open={open} onOpenChange={setOpen} />

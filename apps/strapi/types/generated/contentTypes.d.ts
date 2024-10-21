@@ -726,6 +726,50 @@ export interface ApiPlanPaymentOptionPlanPaymentOption
   };
 }
 
+export interface ApiPodcastPodcast extends Struct.CollectionTypeSchema {
+  collectionName: 'podcasts';
+  info: {
+    singularName: 'podcast';
+    pluralName: 'podcasts';
+    displayName: 'Podcast';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    thumbnail: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    description: Schema.Attribute.Text;
+    host: Schema.Attribute.String;
+    schedule: Schema.Attribute.String;
+    dayOfWeek: Schema.Attribute.Enumeration<
+      [
+        'monday',
+        'tuesday',
+        'wednesday',
+        'thursday',
+        'friday',
+        'saturday',
+        'sunday',
+      ]
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::podcast.podcast'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSerieSerie extends Struct.CollectionTypeSchema {
   collectionName: 'series';
   info: {
@@ -1225,6 +1269,7 @@ declare module '@strapi/strapi' {
       'api::payment.payment': ApiPaymentPayment;
       'api::plan.plan': ApiPlanPlan;
       'api::plan-payment-option.plan-payment-option': ApiPlanPaymentOptionPlanPaymentOption;
+      'api::podcast.podcast': ApiPodcastPodcast;
       'api::serie.serie': ApiSerieSerie;
       'api::serie-episode.serie-episode': ApiSerieEpisodeSerieEpisode;
       'api::serie-season.serie-season': ApiSerieSeasonSerieSeason;

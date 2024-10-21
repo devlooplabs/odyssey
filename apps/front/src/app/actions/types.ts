@@ -54,6 +54,7 @@ export interface OdysseyImageFormat {
 /* Media */
 export enum MediaType {
   serie = "serie",
+  podcast = "podcast",
 }
 
 export interface Media {

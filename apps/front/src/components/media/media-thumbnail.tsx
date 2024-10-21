@@ -1,30 +1,48 @@
 import Image from "next/image";
 import { P } from "../typography/texts";
-import { Media } from "@/app/actions/types";
+import { Media, OdysseyImageFile } from "@/app/actions/types";
+import { cva, VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
+
+const thumbVariants = cva("w-full bg-card relative", {
+  variants: {
+    variant: {
+      default: "aspect-video",
+      square: "aspect-square",
+    },
+  },
+  defaultVariants: {
+    variant: "default",
+  },
+});
 
 interface MediaThumbnailProps {
-  media: Media;
+  name?: string;
+  thumbnail?: OdysseyImageFile;
+  className?: string;
 }
 
-export const MediaThumbnail: React.FC<MediaThumbnailProps> = ({ media }) => (
-  <div className="w-full aspect-video bg-card relative">
-    {media.thumbnail && (
+export const MediaThumbnail: React.FC<
+  MediaThumbnailProps & VariantProps<typeof thumbVariants>
+> = ({ name, thumbnail, variant, className }) => (
+  <div className={cn(thumbVariants({ variant, className }))}>
+    {thumbnail && (
       <Image
-        src={media.thumbnail.formats.medium.url}
+        src={thumbnail.formats.medium.url}
         alt="placeholder"
         style={{
-          objectFit: "contain",
+          objectFit: "cover",
         }}
         draggable={false}
         fill
       />
     )}
-    <P
-      size="lg"
-      variant="gradient"
-      className="absolute bottom-0 left-1/2 transform -translate-x-1/2 mb-2 uppercase"
-    >
-      {media.name}
-    </P>
+    {name && (
+      <div className="flex justify-center">
+        <P size="lg" variant="gradient" className="bottom-2 uppercase truncate">
+          {name}
+        </P>
+      </div>
+    )}
   </div>
 );
