@@ -5,7 +5,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { H2 } from "@/components/typography/headings";
+import { H2, H3 } from "@/components/typography/headings";
 import { cn } from "@/lib/utils";
 import React from "react";
 import { MediaContent } from "@/app/actions/types";
@@ -27,7 +27,7 @@ export const MediaContentCarousel: React.FC<MediaContentCarouselProps> = ({
     <div className="w-full space-y-4">
       {title && (
         <div className="mx-10">
-          <H2 variant="gradient">{title}</H2>
+          <H3 variant="gradient">{title}</H3>
         </div>
       )}
       <Carousel

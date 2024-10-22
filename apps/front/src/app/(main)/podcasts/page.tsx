@@ -50,10 +50,7 @@ export default function Page() {
                     .filter((podcast) => podcast.dayOfWeek === key)
                     .map((podcast) => (
                       <div key={podcast.documentId}>
-                        <MediaThumbnail
-                          variant="square"
-                          thumbnail={podcast.thumbnail}
-                        />
+                        <MediaCard variant="square" media={podcast} />
                       </div>
                     ))}
               </div>
