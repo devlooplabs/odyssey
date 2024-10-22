@@ -546,6 +546,14 @@ export interface ApiLiveLive extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
   attributes: {
     name: Schema.Attribute.String & Schema.Attribute.Required;
     description: Schema.Attribute.Text;
@@ -574,6 +582,14 @@ export interface ApiMediaCategoryMediaCategory
   };
   options: {
     draftAndPublish: true;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
   };
   attributes: {
     name: Schema.Attribute.String & Schema.Attribute.Required;
@@ -818,6 +834,14 @@ export interface ApiSerieSerie extends Struct.CollectionTypeSchema {
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
   attributes: {
     name: Schema.Attribute.String & Schema.Attribute.Required;
     thumbnail: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
@@ -855,6 +879,14 @@ export interface ApiSerieEpisodeSerieEpisode
   options: {
     draftAndPublish: true;
   };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
+  };
   attributes: {
     name: Schema.Attribute.String & Schema.Attribute.Required;
     sequence: Schema.Attribute.Integer & Schema.Attribute.Required;
@@ -891,6 +923,14 @@ export interface ApiSerieSeasonSerieSeason extends Struct.CollectionTypeSchema {
   };
   options: {
     draftAndPublish: true;
+  };
+  pluginOptions: {
+    'content-manager': {
+      visible: false;
+    };
+    'content-type-builder': {
+      visible: false;
+    };
   };
   attributes: {
     name: Schema.Attribute.String;

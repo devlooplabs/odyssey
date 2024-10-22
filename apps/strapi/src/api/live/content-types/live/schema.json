@@ -9,7 +9,14 @@
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {},
+  "pluginOptions": {
+    "content-manager": {
+      "visible": false
+    },
+    "content-type-builder": {
+      "visible": false
+    }
+  },
   "attributes": {
     "name": {
       "type": "string",
@@ -19,16 +26,12 @@
       "type": "text"
     },
     "thumbnail": {
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "type": "media",
       "multiple": false
     },
     "video": {
-      "allowedTypes": [
-        "videos"
-      ],
+      "allowedTypes": ["videos"],
       "type": "media",
       "multiple": false
     }
