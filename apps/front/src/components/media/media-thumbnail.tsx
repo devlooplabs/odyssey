@@ -38,8 +38,8 @@ export const MediaThumbnail: React.FC<
       />
     )}
     {name && (
-      <div className="flex justify-center">
-        <P size="lg" variant="gradient" className="bottom-2 uppercase truncate">
+      <div className="absolute flex justify-center bottom-2 w-full">
+        <P size="lg" variant="gradient" className="uppercase truncate">
           {name}
         </P>
       </div>

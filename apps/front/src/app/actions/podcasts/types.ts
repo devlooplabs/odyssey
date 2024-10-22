@@ -1,4 +1,4 @@
-import { MediaType, OdysseyImageFile } from "../types";
+import { MediaType, MediaVideo as VideoMedia, OdysseyImageFile, OdysseyVideoFile, Media } from "../types";
 
 export enum WeekDays {
   monday = "monday",
@@ -20,14 +20,19 @@ export const WeekDaysText: Record<WeekDays, string> = {
   sunday: "Domingo",
 };
 
-export interface Podcast {
-  id: number;
-  documentId: string;
-  name: string;
-  thumbnail: OdysseyImageFile;
-  mediaType: MediaType;
-  description?: string;
+export interface Podcast extends Media {
+  type: MediaType.podcast;
   host?: string;
   schedule?: string;
   dayOfWeek?: WeekDays;
+}
+
+export interface PodcastEpisode extends VideoMedia {
+  id: number;
+  documentId: string;
+  podcast?: Podcast;
+  name: string;
+  description?: string;
+  thumbnail: OdysseyImageFile,
+  video: OdysseyVideoFile
 }

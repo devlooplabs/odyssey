@@ -754,6 +754,10 @@ export interface ApiPodcastPodcast extends Struct.CollectionTypeSchema {
         'sunday',
       ]
     >;
+    episodes: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::podcast-episode.podcast-episode'
+    >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -765,6 +769,39 @@ export interface ApiPodcastPodcast extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::podcast.podcast'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiPodcastEpisodePodcastEpisode
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'podcast_episodes';
+  info: {
+    singularName: 'podcast-episode';
+    pluralName: 'podcast-episodes';
+    displayName: 'Podcast Episode';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    podcast: Schema.Attribute.Relation<'manyToOne', 'api::podcast.podcast'>;
+    description: Schema.Attribute.Text;
+    thumbnail: Schema.Attribute.Media<'images'>;
+    video: Schema.Attribute.Media<'videos'>;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::podcast-episode.podcast-episode'
     > &
       Schema.Attribute.Private;
   };
@@ -1270,6 +1307,7 @@ declare module '@strapi/strapi' {
       'api::plan.plan': ApiPlanPlan;
       'api::plan-payment-option.plan-payment-option': ApiPlanPaymentOptionPlanPaymentOption;
       'api::podcast.podcast': ApiPodcastPodcast;
+      'api::podcast-episode.podcast-episode': ApiPodcastEpisodePodcastEpisode;
       'api::serie.serie': ApiSerieSerie;
       'api::serie-episode.serie-episode': ApiSerieEpisodeSerieEpisode;
       'api::serie-season.serie-season': ApiSerieSeasonSerieSeason;

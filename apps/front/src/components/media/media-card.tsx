@@ -12,7 +12,6 @@ interface MediaCardProps {
 export const MediaCard: React.FC<MediaCardProps> = ({ media }) => {
   const [open, setOpen] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
-
   return (
     <>
       <div className="w-full" role="button" onClick={() => setOpen(true)}>

@@ -36,10 +36,15 @@ const items = [
   //   segment: "ebooks",
   // },
   {
-    title: "Séries",
-    path: "/series",
-    segment: "series",
+    title: "Podcasts",
+    path: "/podcasts",
+    segument: "podcasts"
   },
+  // {
+  //   title: "Séries",
+  //   path: "/series",
+  //   segment: "series",
+  // },
   // {
   //   title: "Comunidade",
   //   path: "#",

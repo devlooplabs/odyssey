@@ -1,11 +1,13 @@
-import QueryString from "qs";
+"use server";
+
+import qs from "qs";
 import { getOdysseyClient } from "../client";
-import { MediaType, OdysseyFindResponse } from "../types";
-import { Podcast } from "./types";
+import { MediaContentType, MediaType, OdysseyFindResponse } from "../types";
+import { Podcast, PodcastEpisode } from "./types";
 
 export async function findPodcasts() {
   const client = getOdysseyClient();
-  const query = QueryString.stringify(
+  const query = qs.stringify(
     {
       populate: {
         thumbnail: true,
@@ -21,6 +23,48 @@ export async function findPodcasts() {
       ? res.data.data.map(
           (serie) => ({ ...serie, type: MediaType.podcast }) as Podcast
         )
-      : null,
+      : [],
+  };
+}
+
+interface FindPodcastEpisodesParams {
+  limit?: number;
+  podcast?: string;
+}
+
+export async function findPodcastEpisodes({
+  podcast,
+  limit,
+}: FindPodcastEpisodesParams) {
+  const client = getOdysseyClient();
+
+  const filters: any = {};
+  if (podcast) {
+    filters.podcast = { documentId: { $eq: podcast } };
+  }
+
+  const query = qs.stringify(
+    {
+      filters: Object.keys(filters).length ? filters : undefined,
+      sort: ["publishedAt:desc"],
+      populate: ["thumbnail", "podcast"],
+      pagination: limit ? { limit } : undefined,
+    },
+    { encodeValuesOnly: true }
+  );
+  const url = `/api/podcast-episodes?${query}`;
+  const res = await client.get<OdysseyFindResponse<PodcastEpisode[]>>(url);
+  return {
+    ...res.data,
+    data: res.data.data
+      ? res.data.data.map(
+          (ep) =>
+            ({
+              ...ep,
+              type: MediaContentType.video,
+              url: `/podcasts/watch/${ep.documentId}`,
+            }) as PodcastEpisode
+        )
+      : [],
   };
 }

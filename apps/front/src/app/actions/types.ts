@@ -80,6 +80,7 @@ export interface MediaContent {
   createdAt: string;
   publishedAt: string;
   name: string;
+  url: string;
   description?: string;
   thumbnail?: OdysseyImageFile;
 }

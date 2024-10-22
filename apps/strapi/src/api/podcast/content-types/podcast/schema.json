@@ -44,6 +44,12 @@
         "saturday",
         "sunday"
       ]
+    },
+    "episodes": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::podcast-episode.podcast-episode",
+      "mappedBy": "podcast"
     }
   }
 }
