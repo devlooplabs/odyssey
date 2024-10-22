@@ -27,6 +27,26 @@ export async function findPodcasts() {
   };
 }
 
+export async function findPodcast(id: string) {
+  const client = getOdysseyClient();
+  const query = qs.stringify(
+    {
+      populate: {
+        thumbnail: true,
+      },
+    },
+    { encodeValuesOnly: true }
+  );
+  const url = `/api/podcasts/${id}?${query}`;
+  const res = await client.get<OdysseyFindResponse<Podcast>>(url);
+  return {
+    ...res.data,
+    data: res.data.data
+      ? ({ ...res.data.data, type: MediaType.podcast } as Podcast)
+      : null,
+  };
+}
+
 interface FindPodcastEpisodesParams {
   limit?: number;
   podcast?: string;
@@ -66,5 +86,26 @@ export async function findPodcastEpisodes({
             }) as PodcastEpisode
         )
       : [],
+  };
+}
+
+export async function findPodcastEpisode(id: string) {
+  const client = getOdysseyClient();
+  const query = qs.stringify(
+    {
+      populate: {
+        thumbnail: true,
+        video: true,
+      },
+    },
+    { encodeValuesOnly: true }
+  );
+  const url = `/api/podcast-episodes/${id}?${query}`;
+  const res = await client.get<OdysseyFindResponse<PodcastEpisode>>(url);
+  return {
+    ...res.data,
+    data: res.data.data
+      ? ({ ...res.data.data, type: MediaContentType.video } as PodcastEpisode)
+      : null,
   };
 }

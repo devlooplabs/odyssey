@@ -4,7 +4,7 @@ export function Footer() {
   const linkCls = "underline hover:text-primary";
 
   return (
-    <footer className="py-6 md:px-8 md:py-8 border-t">
+    <footer className="py-6 md:px-8 md:py-8 border-t mt-8">
       <div className="container flex justify-between gap-4">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
