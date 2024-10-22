@@ -2,7 +2,6 @@
 
 import qs from "qs";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import { SignInModel, SignUpModel } from "./schemas";
 import { TokenResult, User } from "./types";
 import { getOdysseyClient } from "../client";

@@ -1,4 +1,3 @@
-import { Membership } from "../memberships/types";
 import { OdysseyBaseResponse } from "../types";
 
 export interface User {
