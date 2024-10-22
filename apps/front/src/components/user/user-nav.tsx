@@ -19,7 +19,6 @@ import { P } from "../typography/texts";
 export const UserNav: React.FC = () => {
   const router = useRouter();
   const { user, logout } = useAuth();
-  console.log("user", user);
 
   if (!user)
     return (

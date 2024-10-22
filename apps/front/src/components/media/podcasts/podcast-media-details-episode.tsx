@@ -20,7 +20,7 @@ export const PodcastMediaDetailsEpisode: React.FC<
       <div className="relative flex-grow aspect-video min-w-[150px]">
         <MediaContentCard content={episode} />
       </div>
-      <div className="flex-grow">
+      <div className="flex items-center">
         <P>{episode.description}</P>
       </div>
     </div>

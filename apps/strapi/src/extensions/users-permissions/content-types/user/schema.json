@@ -74,6 +74,11 @@
     "member": {
       "type": "boolean",
       "default": false
+    },
+    "plan": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::plan.plan"
     }
   }
 }

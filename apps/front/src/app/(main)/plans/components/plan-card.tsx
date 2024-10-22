@@ -17,9 +17,10 @@ import { Money } from "@/components/payment/money";
 
 interface PlanCardProps {
   plan: Plan;
+  currentPlan?: boolean;
 }
 
-export const PlanCard: React.FC<PlanCardProps> = ({ plan }) => {
+export const PlanCard: React.FC<PlanCardProps> = ({ plan, currentPlan }) => {
   const router = useRouter();
 
   return (
@@ -42,9 +43,10 @@ export const PlanCard: React.FC<PlanCardProps> = ({ plan }) => {
         <Button
           size="lg"
           className="font-semibold text-md rounded-3xl"
+          disabled={currentPlan}
           onClick={() => router.push(`/payment?planId=${plan.documentId}`)}
         >
-          Assinar
+          {currentPlan ? "Plano Atual" : "Assinar"}
         </Button>
       </CardFooter>
     </Card>

@@ -16,8 +16,7 @@
       "type": "relation",
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
-      "inversedBy": "payments",
-      "required": true
+      "inversedBy": "payments"
     },
     "plan": {
       "type": "relation",

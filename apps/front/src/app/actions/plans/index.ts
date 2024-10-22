@@ -13,7 +13,7 @@ export async function findPlan(id: string) {
 
 export async function findPlans() {
   const client = getOdysseyClient();
-  const url = "/api/plans?populate=paymentOptions";
+  const url = "/api/plans?populate[0]=paymentOptions&populate[1]=role";
   const res = await client.get<OdysseyFindResponse<Plan[]>>(url);
   return res.data;
 }

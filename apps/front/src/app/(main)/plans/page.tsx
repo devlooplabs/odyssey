@@ -5,8 +5,10 @@ import { PlanCard } from "./components/plan-card";
 import { H1 } from "@/components/typography/headings";
 import { findPlans } from "@/app/actions";
 import { Plan } from "@/app/actions/plans/types";
+import { useAuth } from "@/components/auth/auth-context";
 
 export default function PaymentPage() {
+  const { isMember } = useAuth();
   const [plans, setPlans] = useState<Plan[]>([]);
   const [fetching, startFetching] = useTransition();
 
@@ -20,9 +22,9 @@ export default function PaymentPage() {
   return (
     <div className="container py-8 flex flex-col items-center gap-12">
       <H1>Escolha seu plano</H1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="flex justify-center gap-6">
         {plans.map((plan) => (
-          <PlanCard key={plan.documentId} plan={plan} />
+          <PlanCard key={plan.documentId} plan={plan} currentPlan={isMember} />
         ))}
       </div>
     </div>

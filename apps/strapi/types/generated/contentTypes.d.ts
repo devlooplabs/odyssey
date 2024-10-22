@@ -480,6 +480,7 @@ export interface PluginUsersPermissionsUser
     >;
     payments: Schema.Attribute.Relation<'oneToMany', 'api::payment.payment'>;
     member: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    plan: Schema.Attribute.Relation<'oneToOne', 'api::plan.plan'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -608,8 +609,7 @@ export interface ApiPaymentPayment extends Struct.CollectionTypeSchema {
     user: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'
-    > &
-      Schema.Attribute.Required;
+    >;
     plan: Schema.Attribute.Relation<'oneToOne', 'api::plan.plan'> &
       Schema.Attribute.Required;
     gateway: Schema.Attribute.Enumeration<['stripe', 'mercadopago']> &

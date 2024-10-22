@@ -38,18 +38,18 @@ export default function Page() {
         <div className="flex justify-center">
           <H1 variant="gradient">Programação</H1>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2 bg-card rounded-3xl p-4">
           {Object.keys(WeekDays).map((key) => (
             <div key={key} className="flex flex-col gap-2">
               <div className="h-12 text-xl flex justify-center items-center text-primary font-semibold">
                 {WeekDaysText[key as WeekDays]}
               </div>
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col">
                 {scheduled?.length > 0 &&
                   scheduled
                     .filter((podcast) => podcast.dayOfWeek === key)
                     .map((podcast) => (
-                      <div key={podcast.documentId}>
+                      <div key={podcast.documentId} className="overflow-hidden rounded-xl">
                         <MediaCard variant="square" media={podcast} />
                       </div>
                     ))}

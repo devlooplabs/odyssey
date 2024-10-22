@@ -32,8 +32,11 @@ export default factories.createCoreController(
         data: {
           member: true,
           role: payment.plan.role.documentId,
+          plan: payment.plan.documentId
         },
       });
+
+      console.log(payment.plan);
 
       const confirmed = await strapi.documents("api::payment.payment").update({
         documentId: payment.documentId,
@@ -71,8 +74,6 @@ export default factories.createCoreController(
         },
         populate: ["user"],
       });
-
-      console.log(payment);
 
       await strapi.documents("plugin::users-permissions.user").update({
         documentId: payment.user.documentId,

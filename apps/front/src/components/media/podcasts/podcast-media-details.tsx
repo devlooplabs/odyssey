@@ -49,7 +49,7 @@ export const PodcastMediaDetails: React.FC<PodcastMediaDetailsProps> = ({
           variant="outline"
           onClick={() => router.push(`/podcasts/${podcast.documentId}`)}
         >
-          Todos todos
+          Ver todos
         </Button>
       </div>
       <div>
