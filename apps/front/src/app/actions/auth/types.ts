@@ -1,3 +1,4 @@
+import { Plan } from "../plans/types";
 import { OdysseyBaseResponse } from "../types";
 
 export interface User {
@@ -9,6 +10,7 @@ export interface User {
   username: string;
   role: Role;
   member: boolean;
+  plan: Plan;
 }
 
 export enum RoleType {

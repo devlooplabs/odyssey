@@ -14,6 +14,7 @@ import { Features } from "./plan-features";
 import { P } from "@/components/typography/texts";
 import { Plan } from "@/app/actions/plans/types";
 import { Money } from "@/components/payment/money";
+import { H2 } from "@/components/typography/headings";
 
 interface PlanCardProps {
   plan: Plan;
@@ -36,18 +37,27 @@ export const PlanCard: React.FC<PlanCardProps> = ({ plan, currentPlan }) => {
       <CardContent className="space-y-8">
         <Features features={plan.features} />
         <div className="space-y-1">
-          <Money currency={plan.currency} value={plan.price} size="xl" />
+          <H2 variant="gradient">
+            <Money currency={plan.currency} value={plan.price} size="xl" /> /
+            mês
+          </H2>
         </div>
       </CardContent>
       <CardFooter className="flex flex-col justify-center">
-        <Button
-          size="lg"
-          className="font-semibold text-md rounded-3xl"
-          disabled={currentPlan}
-          onClick={() => router.push(`/payment?planId=${plan.documentId}`)}
-        >
-          {currentPlan ? "Plano Atual" : "Assinar"}
-        </Button>
+        {currentPlan ? (
+          <H2 variant="gradient" className="uppercase">
+            Seu plano
+          </H2>
+        ) : (
+          <Button
+            size="lg"
+            className="font-semibold text-md rounded-3xl"
+            disabled={currentPlan}
+            onClick={() => router.push(`/payment?planId=${plan.documentId}`)}
+          >
+            Assinar
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );

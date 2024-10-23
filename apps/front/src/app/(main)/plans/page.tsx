@@ -8,7 +8,7 @@ import { Plan } from "@/app/actions/plans/types";
 import { useAuth } from "@/components/auth/auth-context";
 
 export default function PaymentPage() {
-  const { isMember } = useAuth();
+  const { isMember, user } = useAuth();
   const [plans, setPlans] = useState<Plan[]>([]);
   const [fetching, startFetching] = useTransition();
 
@@ -24,7 +24,11 @@ export default function PaymentPage() {
       <H1>Escolha seu plano</H1>
       <div className="flex justify-center gap-6">
         {plans.map((plan) => (
-          <PlanCard key={plan.documentId} plan={plan} currentPlan={isMember} />
+          <PlanCard
+            key={plan.documentId}
+            plan={plan}
+            currentPlan={user?.plan?.documentId === plan.documentId}
+          />
         ))}
       </div>
     </div>

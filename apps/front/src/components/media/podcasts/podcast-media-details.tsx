@@ -1,18 +1,7 @@
 "use client";
 
-import { findSerieEpisodes } from "@/app/actions";
-import { Serie, SerieEpisode } from "@/app/actions/series/types";
 import { H2 } from "@/components/typography/headings";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectLabel,
-  SelectTrigger,
-} from "@/components/ui/select";
-import { SelectGroup, SelectValue } from "@radix-ui/react-select";
 import React, { useEffect, useState, useTransition } from "react";
-// import { SerieMediaDetailsEpisode } from "./serie-media-details-episode";
 import { Podcast, PodcastEpisode } from "@/app/actions/podcasts/types";
 import { Button } from "@/components/ui/button";
 import { findPodcastEpisodes } from "@/app/actions/podcasts";

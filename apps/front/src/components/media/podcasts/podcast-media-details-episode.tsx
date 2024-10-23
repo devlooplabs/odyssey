@@ -1,11 +1,5 @@
 import { PodcastEpisode } from "@/app/actions/podcasts/types";
-import { SerieEpisode } from "@/app/actions/series/types";
-import { H2 } from "@/components/typography/headings";
 import { P } from "@/components/typography/texts";
-import { Button } from "@/components/ui/button";
-import { PlayCircle } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 import { MediaContentCard } from "../content/media-content-card";
 
 interface PodcastMediaDetailsEpisodeProps {

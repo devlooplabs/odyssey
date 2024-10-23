@@ -10,27 +10,17 @@ interface MoneyProps
   currency: string;
 }
 
-export const Money = React.forwardRef<HTMLParagraphElement, MoneyProps>(
-  ({ value, currency, variant, size, className, ...props }, ref) => {
-    const formattedValue = new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency,
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    }).format(value);
+function formatValue(value: number, currency: string) {
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(value);
+}
 
-    return (
-      <P
-        ref={ref}
-        variant={variant}
-        size={size}
-        className={cn(className)}
-        {...props}
-      >
-        {formattedValue}
-      </P>
-    );
-  }
+export const Money: React.FC<MoneyProps> = ({ value, currency }) => (
+  <>{formatValue(value, currency)}</>
 );
 
 Money.displayName = "Money";

@@ -51,7 +51,12 @@ export async function getMe() {
   if (!token) return { user: null };
 
   const client = getOdysseyClient();
-  const query = qs.stringify({ populate: ["role" ] });
+  const query = qs.stringify({
+    populate: {
+      role: true,
+      plan: true,
+    },
+  });
   const url = `/api/users/me?${query}`;
   const res = await client.get<User>(url);
   return { user: res.data };
