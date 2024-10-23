@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useRouter } from "next/navigation";
-import { Features } from "./plan-features";
+import { PlanFeatures } from "./plan-features";
 import { P } from "@/components/typography/texts";
 import { Plan } from "@/app/actions/plans/types";
 import { Money } from "@/components/payment/money";
@@ -35,7 +35,7 @@ export const PlanCard: React.FC<PlanCardProps> = ({ plan, currentPlan }) => {
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-8">
-        <Features features={plan.features} />
+        <PlanFeatures features={plan.features} />
         <div className="space-y-1">
           <H2 variant="gradient">
             <Money currency={plan.currency} value={plan.price} size="xl" /> /
