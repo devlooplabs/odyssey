@@ -26,11 +26,12 @@ export function AuthProvider({
     });
   }
 
-  async function onLogin() {
+  async function onLogin(redirect: boolean = true) {
     await load();
     const redirectUrl = searchParams.get("redirectUrl");
-    if (redirectUrl) router.push(redirectUrl);
-    else router.push("/");
+    if (redirect) {
+      router.push(redirectUrl || "/");
+    }
   }
 
   useEffect(() => {
@@ -38,9 +39,7 @@ export function AuthProvider({
   }, []);
 
   const isMember = () => {
-    return (
-      user?.member === true && user?.role?.type == RoleType.member
-    );
+    return user?.member === true && user?.role?.type == RoleType.member;
   };
 
   return (

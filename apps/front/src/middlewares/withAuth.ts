@@ -5,7 +5,7 @@ import { JWT_COOKIE_NAME } from "@/lib/auth";
 export const withAuth: Middleware = (next) => {
   return async (request: NextRequest, _next: NextFetchEvent) => {
     const pathname = request.nextUrl.pathname;
-    const routes = ["/payment"];
+    const routes = ["/payment", "/account"];
 
     if (routes.some((path) => pathname.startsWith(path))) {
       const jwt = request.cookies.get(JWT_COOKIE_NAME);

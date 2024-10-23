@@ -95,7 +95,7 @@ export function Menu() {
             <NavigationMenuItem key={item.path}>
               <Link href={item.path} passHref legacyBehavior>
                 <NavigationMenuLink
-                  className={cn("no-underline", {
+                  className={cn("hover:no-underline", {
                     "text-primary": segment === item.segment,
                   })}
                 >

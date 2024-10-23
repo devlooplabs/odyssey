@@ -3,6 +3,7 @@
 import qs from "qs";
 import { cookies } from "next/headers";
 import {
+  ChangePasswordModel,
   ForgotPasswordModel,
   ResetPasswordModel,
   SignInModel,
@@ -76,6 +77,17 @@ export async function forgotPassword(model: ForgotPasswordModel) {
 export async function resetPassword(model: ResetPasswordModel) {
   const client = getOdysseyClient();
   const res = await client.post<TokenResult>("/api/auth/reset-password", model);
+
+  if (res.data.jwt) {
+    cookies().set(JWT_COOKIE_NAME, res.data.jwt);
+  }
+
+  return res.data;
+}
+
+export async function changePassword(model: ChangePasswordModel) {
+  const client = getOdysseyClient();
+  const res = await client.post<TokenResult>("/api/auth/change-password", model);
 
   if (res.data.jwt) {
     cookies().set(JWT_COOKIE_NAME, res.data.jwt);

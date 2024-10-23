@@ -6,7 +6,7 @@ interface AuthContextProps {
   loading: boolean;
   isMember: boolean;
   logout: () => void;
-  onLogin: () => Promise<void>;
+  onLogin: (redirect?: boolean) => Promise<void>;
 }
 
 export const AuthContext = createContext<AuthContextProps | undefined>(
