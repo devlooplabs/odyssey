@@ -1,14 +1,15 @@
 /* Base */
-export interface OdysseyBaseResponse<T> {
+export interface OdysseyBaseResponse<T> extends OdysseErrorResponse {
   data: T | null;
-  error?: OdysseyError;
 }
 
-export interface OdysseyError {
-  status: number;
-  name: string;
-  message: string;
-  details: unknown;
+export interface OdysseErrorResponse {
+  error?: {
+    status: number;
+    name: string;
+    message: string;
+    details: unknown;
+  };
 }
 
 export interface OdysseyFindResponse<T> extends OdysseyBaseResponse<T> {

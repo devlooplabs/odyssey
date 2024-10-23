@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -18,23 +18,42 @@ import {
   ResetPasswordModel,
   ResetPasswordSchema,
 } from "@/app/actions/auth/schemas";
+import { useSearchParams } from "next/navigation";
+import { resetPassword } from "@/app/actions";
+import { useAuth } from "@/components/auth/auth-context";
 
 export function ResetPasswordForm() {
+  const searchParams = useSearchParams();
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string>();
+  const { onLogin } = useAuth();
+
+  useEffect(() => {
+    const code = searchParams.get("code");
+    if (code) {
+      form.setValue("code", code);
+    }
+  }, [searchParams]);
 
   const form = useForm<ResetPasswordModel>({
     resolver: zodResolver(ResetPasswordSchema),
+    values: {
+      code: "",
+      password: "",
+      passwordConfirmation: "",
+    },
   });
 
   function onSubmit(values: ResetPasswordModel) {
     startTransition(async () => {
-      // const { user, error } = await signup(values);
-      // if (user) {
-      //   await onLogin();
-      // } else {
-      //   setError(error);
-      // }
+      startTransition(async () => {
+        const { error } = await resetPassword(values);
+        if (error) {
+          setError(error.message);
+        } else {
+          await onLogin();
+        }
+      });
     });
   }
 
@@ -42,6 +61,11 @@ export function ResetPasswordForm() {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <div className="space-y-4">
+          <FormField
+            name="code"
+            control={form.control}
+            render={({ field }) => <Input type="hidden" {...field} />}
+          />
           <FormField
             name="password"
             control={form.control}
@@ -57,7 +81,7 @@ export function ResetPasswordForm() {
             )}
           />
           <FormField
-            name="confirmPassword"
+            name="passwordConfirmation"
             control={form.control}
             disabled={pending}
             render={({ field }) => (

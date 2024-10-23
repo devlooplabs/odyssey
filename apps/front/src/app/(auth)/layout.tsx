@@ -18,6 +18,7 @@ export default function Layout({
               className="justify-self-center"
               width={80}
               draggable={false}
+              priority
             />
           </Link>
         </header>

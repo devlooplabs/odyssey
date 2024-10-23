@@ -1,5 +1,5 @@
 import { Plan } from "../plans/types";
-import { OdysseyBaseResponse } from "../types";
+import { OdysseErrorResponse, OdysseyBaseResponse } from "../types";
 
 export interface User {
   id: number;
@@ -25,7 +25,12 @@ export interface Role {
   description: string;
   type: RoleType;
 }
-export interface TokenResult extends OdysseyBaseResponse<null> {
+
+export interface TokenResult extends OdysseErrorResponse {
   jwt: string;
   user: User;
+}
+
+export interface ForgotPasswordResult extends OdysseErrorResponse {
+  ok: boolean;
 }

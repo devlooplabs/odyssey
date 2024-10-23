@@ -31,10 +31,11 @@ export type ForgotPasswordModel = z.infer<typeof ForgotPasswordSchema>;
 
 export const ResetPasswordSchema = z
   .object({
+    code: z.string().min(1),
     password: z.string().min(12).max(128),
-    confirmPassword: z.string().min(12).max(128),
+    passwordConfirmation: z.string().min(12).max(128),
   })
-  .refine((data) => data.password === data.confirmPassword, {
+  .refine((data) => data.password === data.passwordConfirmation, {
     message: "Passwords must match.",
     path: ["confirmPassword"],
   });

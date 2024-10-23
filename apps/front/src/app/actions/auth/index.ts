@@ -2,10 +2,16 @@
 
 import qs from "qs";
 import { cookies } from "next/headers";
-import { SignInModel, SignUpModel } from "./schemas";
-import { TokenResult, User } from "./types";
+import {
+  ForgotPasswordModel,
+  ResetPasswordModel,
+  SignInModel,
+  SignUpModel,
+} from "./schemas";
+import { ForgotPasswordResult, TokenResult, User } from "./types";
 import { getOdysseyClient } from "../client";
 import { JWT_COOKIE_NAME } from "@/lib/auth";
+import { OdysseyBaseResponse } from "../types";
 
 export async function signup(model: SignUpModel) {
   const client = getOdysseyClient();
@@ -18,8 +24,6 @@ export async function signup(model: SignUpModel) {
 
   if (res.data.jwt) {
     cookies().set(JWT_COOKIE_NAME, res.data.jwt);
-    // if (model.redirectUrl) return redirect(model.redirectUrl);
-    // return redirect("/");
   }
 
   return res.data;
@@ -34,8 +38,6 @@ export async function login(model: SignInModel) {
   });
   if (res.data.jwt) {
     cookies().set(JWT_COOKIE_NAME, res.data.jwt);
-    // if (model.redirectUrl) return redirect(model.redirectUrl);
-    // return redirect("/");
   }
 
   return res.data;
@@ -59,4 +61,25 @@ export async function getMe() {
   const url = `/api/users/me?${query}`;
   const res = await client.get<User>(url);
   return { user: res.data };
+}
+
+export async function forgotPassword(model: ForgotPasswordModel) {
+  const client = getOdysseyClient();
+  const res = await client.post<ForgotPasswordResult>(
+    "/api/auth/forgot-password",
+    model
+  );
+
+  return res.data;
+}
+
+export async function resetPassword(model: ResetPasswordModel) {
+  const client = getOdysseyClient();
+  const res = await client.post<TokenResult>("/api/auth/reset-password", model);
+
+  if (res.data.jwt) {
+    cookies().set(JWT_COOKIE_NAME, res.data.jwt);
+  }
+
+  return res.data;
 }
