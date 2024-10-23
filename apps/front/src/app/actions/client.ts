@@ -8,7 +8,7 @@ export function getOdysseyClient(token?: string) {
   });
 
   instance.interceptors.response.use(null, (error) => {
-    if (error.response && error.response.status === 400) {
+    if (error.response && error.response.status < 500) {
       return Promise.resolve(error.response);
     }
 

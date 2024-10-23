@@ -95,12 +95,24 @@ export async function findPodcastEpisode(id: string) {
     {
       populate: {
         thumbnail: true,
-        video: true,
       },
     },
     { encodeValuesOnly: true }
   );
   const url = `/api/podcast-episodes/${id}?${query}`;
+  const res = await client.get<OdysseyFindResponse<PodcastEpisode>>(url);
+
+  return {
+    ...res.data,
+    data: res.data.data
+      ? ({ ...res.data.data, type: MediaContentType.video } as PodcastEpisode)
+      : null,
+  };
+}
+
+export async function watchPodcastEpisode(id: string) {
+  const client = getOdysseyClient();
+  const url = `/api/podcast-episodes/${id}/watch`;
   const res = await client.get<OdysseyFindResponse<PodcastEpisode>>(url);
   return {
     ...res.data,

@@ -797,6 +797,7 @@ export interface ApiPodcastEpisodePodcastEpisode
     singularName: 'podcast-episode';
     pluralName: 'podcast-episodes';
     displayName: 'Podcast Episode';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -806,7 +807,7 @@ export interface ApiPodcastEpisodePodcastEpisode
     podcast: Schema.Attribute.Relation<'manyToOne', 'api::podcast.podcast'>;
     description: Schema.Attribute.Text;
     thumbnail: Schema.Attribute.Media<'images'>;
-    video: Schema.Attribute.Media<'videos'>;
+    video: Schema.Attribute.Media<'videos'> & Schema.Attribute.Private;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

@@ -1,5 +1,5 @@
 import { findSerieEpisode } from "@/app/actions";
-import { findPodcastEpisode } from "@/app/actions/podcasts";
+import { findPodcastEpisode, watchPodcastEpisode } from "@/app/actions/podcasts";
 import { H1 } from "@/components/typography/headings";
 import { P } from "@/components/typography/texts";
 import { getVideoFrameUrl } from "@/lib/bunnycdn";
@@ -8,7 +8,7 @@ import { notFound } from "next/navigation";
 export default async function Page({
   params,
 }: Readonly<{ params: { id: string } }>) {
-  const { data: ep } = await findPodcastEpisode(params.id);
+  const { data: ep } = await watchPodcastEpisode(params.id);
   if (!ep) return notFound();
 
   const url = ep.video ? await getVideoFrameUrl(ep.video) : null;

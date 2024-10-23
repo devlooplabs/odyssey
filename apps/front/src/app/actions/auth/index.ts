@@ -32,7 +32,6 @@ export async function login(model: SignInModel) {
     identifier: model.identifier,
     password: model.password,
   });
-
   if (res.data.jwt) {
     cookies().set(JWT_COOKIE_NAME, res.data.jwt);
     // if (model.redirectUrl) return redirect(model.redirectUrl);
