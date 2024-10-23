@@ -35,10 +35,10 @@ export default function Page() {
 
       <Card>
         <CardHeader>
-          <CardTitle className="relative">
+          <CardTitle className="flex gap-2 items-center">
             Assinatura{" "}
             {user?.plan && user.member && (
-              <Badge className="absolute -top-1 ml-2">{user.plan.name}</Badge>
+              <Badge>Plano {user.plan.name}</Badge>
             )}
           </CardTitle>
         </CardHeader>
