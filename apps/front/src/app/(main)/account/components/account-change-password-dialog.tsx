@@ -31,7 +31,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 
-export const ChangePasswordDialog: React.FC = () => {
+export const AccountChangePasswordDialog: React.FC = () => {
   const [open, setOpen] = useState(false);
   const [error, setError] = useState<string>();
   const [success, setSuccess] = useState(false);
@@ -48,7 +48,6 @@ export const ChangePasswordDialog: React.FC = () => {
   });
 
   function onSubmit(values: ChangePasswordModel) {
-    console.log("submit");
     startChanging(async () => {
       const res = await changePassword(values);
       if (res.error) {

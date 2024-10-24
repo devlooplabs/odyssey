@@ -20,11 +20,11 @@ const items = [
     path: "/lives",
     segment: "lives",
   },
-  // {
-  //   title: "Cursos",
-  //   path: "#",
-  //   segment: "cursos",
-  // },
+  {
+    title: "Cursos",
+    path: "/courses",
+    segment: "courses",
+  },
   // {
   //   title: "Podcasts",
   //   path: "#",
@@ -38,7 +38,7 @@ const items = [
   {
     title: "Podcasts",
     path: "/podcasts",
-    segument: "podcasts"
+    segument: "podcasts",
   },
   // {
   //   title: "Séries",

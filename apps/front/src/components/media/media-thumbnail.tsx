@@ -9,6 +9,7 @@ const thumbVariants = cva("w-full bg-card relative", {
     variant: {
       default: "aspect-video",
       square: "aspect-square",
+      book: "aspect-[2/3] border border-primary rounded-3xl",
     },
   },
   defaultVariants: {
@@ -17,6 +18,7 @@ const thumbVariants = cva("w-full bg-card relative", {
 });
 
 interface MediaThumbnailProps {
+  number?: number;
   name?: string;
   thumbnail?: OdysseyImageFile;
   className?: string;
@@ -24,7 +26,7 @@ interface MediaThumbnailProps {
 
 export const MediaThumbnail: React.FC<
   MediaThumbnailProps & VariantProps<typeof thumbVariants>
-> = ({ name, thumbnail, variant, className }) => (
+> = ({ number, name, thumbnail, variant, className }) => (
   <div className={cn(thumbVariants({ variant, className }))}>
     {thumbnail && (
       <Image
@@ -38,8 +40,15 @@ export const MediaThumbnail: React.FC<
       />
     )}
     {name && (
-      <div className="absolute flex justify-center bottom-2 w-full">
-        <P size="lg" variant="gradient" className="uppercase truncate">
+      <div className="absolute flex justify-center bottom-2 w-full text-center">
+        {number && (
+          <span className="text-5xl [&::-webkit-text-stroke]:[1px]">{number}</span>
+        )}
+        <P
+          size={variant === "book" ? "xl" : "lg"}
+          variant={variant !== "book" ? "gradient" : "default"}
+          className={cn({ "truncate uppercase": variant !== "book" })}
+        >
           {name}
         </P>
       </div>

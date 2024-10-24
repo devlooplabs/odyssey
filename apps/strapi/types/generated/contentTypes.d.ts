@@ -481,6 +481,7 @@ export interface PluginUsersPermissionsUser
     payments: Schema.Attribute.Relation<'oneToMany', 'api::payment.payment'>;
     member: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     plan: Schema.Attribute.Relation<'oneToOne', 'api::plan.plan'>;
+    notifications: Schema.Attribute.JSON;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

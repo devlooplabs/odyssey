@@ -11,6 +11,7 @@ export interface User {
   role: Role;
   member: boolean;
   plan: Plan;
+  notifications: any | null;
 }
 
 export enum RoleType {
