@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "course_submodules",
+  "info": {
+    "singularName": "course-submodule",
+    "pluralName": "course-submodules",
+    "displayName": "Course Submodule"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "number": {
+      "type": "integer"
+    },
+    "description": {
+      "type": "text"
+    },
+    "thumbnail": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "module": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::course-module.course-module",
+      "inversedBy": "submodules"
+    },
+    "lessons": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::course-lesson.course-lesson",
+      "mappedBy": "submodule"
+    }
+  }
+}

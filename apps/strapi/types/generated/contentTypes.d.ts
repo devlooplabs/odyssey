@@ -537,6 +537,155 @@ export interface ApiBillingCycleBillingCycle
   };
 }
 
+export interface ApiCourseCourse extends Struct.CollectionTypeSchema {
+  collectionName: 'courses';
+  info: {
+    singularName: 'course';
+    pluralName: 'courses';
+    displayName: 'Course';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    number: Schema.Attribute.Integer & Schema.Attribute.Required;
+    description: Schema.Attribute.Text;
+    thumbnail: Schema.Attribute.Media<'images'>;
+    modules: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::course-module.course-module'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::course.course'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiCourseLessonCourseLesson
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'course_lessons';
+  info: {
+    singularName: 'course-lesson';
+    pluralName: 'course-lessons';
+    displayName: 'Course Lesson';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    number: Schema.Attribute.Integer;
+    description: Schema.Attribute.Text;
+    thumbnail: Schema.Attribute.Media<'images'>;
+    video: Schema.Attribute.Media<'videos'>;
+    submodule: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::course-submodule.course-submodule'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::course-lesson.course-lesson'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiCourseModuleCourseModule
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'course_modules';
+  info: {
+    singularName: 'course-module';
+    pluralName: 'course-modules';
+    displayName: 'Course Module';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    number: Schema.Attribute.Integer & Schema.Attribute.Required;
+    description: Schema.Attribute.Text;
+    thumbnail: Schema.Attribute.Media<'images'>;
+    course: Schema.Attribute.Relation<'manyToOne', 'api::course.course'>;
+    submodules: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::course-submodule.course-submodule'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::course-module.course-module'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiCourseSubmoduleCourseSubmodule
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'course_submodules';
+  info: {
+    singularName: 'course-submodule';
+    pluralName: 'course-submodules';
+    displayName: 'Course Submodule';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    number: Schema.Attribute.Integer;
+    description: Schema.Attribute.Text;
+    thumbnail: Schema.Attribute.Media<'images'>;
+    module: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::course-module.course-module'
+    >;
+    lessons: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::course-lesson.course-lesson'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::course-submodule.course-submodule'
+    > &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiLiveLive extends Struct.CollectionTypeSchema {
   collectionName: 'lives';
   info: {
@@ -1343,6 +1492,10 @@ declare module '@strapi/strapi' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::billing-cycle.billing-cycle': ApiBillingCycleBillingCycle;
+      'api::course.course': ApiCourseCourse;
+      'api::course-lesson.course-lesson': ApiCourseLessonCourseLesson;
+      'api::course-module.course-module': ApiCourseModuleCourseModule;
+      'api::course-submodule.course-submodule': ApiCourseSubmoduleCourseSubmodule;
       'api::live.live': ApiLiveLive;
       'api::media-category.media-category': ApiMediaCategoryMediaCategory;
       'api::payment.payment': ApiPaymentPayment;

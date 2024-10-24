@@ -9,7 +9,7 @@ const thumbVariants = cva("w-full bg-card relative", {
     variant: {
       default: "aspect-video",
       square: "aspect-square",
-      book: "aspect-[2/3] border border-primary rounded-3xl",
+      book: "aspect-[2/3]",
     },
   },
   defaultVariants: {
@@ -27,10 +27,14 @@ interface MediaThumbnailProps {
 export const MediaThumbnail: React.FC<
   MediaThumbnailProps & VariantProps<typeof thumbVariants>
 > = ({ number, name, thumbnail, variant, className }) => (
-  <div className={cn(thumbVariants({ variant, className }))}>
+  <div className={cn("overflow-hidden", thumbVariants({ variant, className }))}>
     {thumbnail && (
       <Image
-        src={thumbnail.formats.medium.url}
+        src={
+          variant === "book"
+            ? thumbnail.formats.large.url
+            : thumbnail.formats.medium.url
+        }
         alt="placeholder"
         style={{
           objectFit: "cover",
@@ -40,17 +44,29 @@ export const MediaThumbnail: React.FC<
       />
     )}
     {name && (
-      <div className="absolute flex justify-center bottom-2 w-full text-center">
-        {number && (
-          <span className="text-5xl [&::-webkit-text-stroke]:[1px]">{number}</span>
-        )}
-        <P
-          size={variant === "book" ? "xl" : "lg"}
-          variant={variant !== "book" ? "gradient" : "default"}
-          className={cn({ "truncate uppercase": variant !== "book" })}
-        >
-          {name}
-        </P>
+      <div className="absolute inset-0 h-full w-full text-center flex items-end justify-center bg-gradient-to-t from-black/50 to-transparent">
+        <span>
+          {number && (
+            <span
+              className="text-6xl text-black font-bold"
+              style={{
+                WebkitTextStrokeWidth: 1,
+                WebkitTextStrokeColor: "white",
+              }}
+            >
+              {number}
+            </span>
+          )}
+          <span
+            className={cn({
+              "text-4xl": variant === "book",
+              "text-2xl font-semibold bg-gradient-to-r from-primary via-white via-30% to-white to-90% inline-block text-transparent bg-clip-text":
+                variant !== "book",
+            })}
+          >
+            {name}
+          </span>
+        </span>
       </div>
     )}
   </div>
