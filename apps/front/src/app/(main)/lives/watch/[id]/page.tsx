@@ -1,13 +1,14 @@
 import { watchLiveEpisode } from "@/app/actions";
-import { H1 } from "@/components/typography/headings";
-import { P } from "@/components/typography/texts";
 import { getVideoFrameUrl } from "@/lib/bunnycdn";
 import { notFound } from "next/navigation";
+import { MediaContentDetails } from "@/components/media/content/media-content-details";
 
 export default async function Page({
   params,
 }: Readonly<{ params: { id: string } }>) {
-  const { data: ep } = await watchLiveEpisode(params.id);
+  const res = await watchLiveEpisode(params.id);
+  console.log(res);
+  const ep = res.data;
   if (!ep) return notFound();
 
   const url = ep.video ? await getVideoFrameUrl(ep.video) : null;
@@ -23,14 +24,7 @@ export default async function Page({
           ></iframe>
         )}
       </div>
-      <div>
-        <div>
-          <H1 variant="gradient">{ep.name}</H1>
-        </div>
-        <div>
-          <P variant="gradient">{ep.description}</P>
-        </div>
-      </div>
+      <MediaContentDetails content={ep} />
     </div>
   );
 }

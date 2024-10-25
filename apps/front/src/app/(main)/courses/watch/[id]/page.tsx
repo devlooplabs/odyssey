@@ -1,6 +1,5 @@
 import { watchCourseLesson } from "@/app/actions/courses";
-import { H1 } from "@/components/typography/headings";
-import { P } from "@/components/typography/texts";
+import { MediaContentDetails } from "@/components/media/content/media-content-details";
 import { getVideoFrameUrl } from "@/lib/bunnycdn";
 import { notFound } from "next/navigation";
 
@@ -23,14 +22,7 @@ export default async function Page({
           />
         )}
       </div>
-      <div>
-        <div>
-          <H1 variant="gradient">{lesson.name}</H1>
-        </div>
-        <div>
-          <P variant="gradient">{lesson.description}</P>
-        </div>
-      </div>
+      <MediaContentDetails content={lesson} />
     </div>
   );
 }

@@ -1,6 +1,5 @@
 import { watchPodcastEpisode } from "@/app/actions/podcasts";
-import { H1 } from "@/components/typography/headings";
-import { P } from "@/components/typography/texts";
+import { MediaContentDetails } from "@/components/media/content/media-content-details";
 import { getVideoFrameUrl } from "@/lib/bunnycdn";
 import { notFound } from "next/navigation";
 
@@ -23,14 +22,7 @@ export default async function Page({
           ></iframe>
         )}
       </div>
-      <div>
-        <div>
-          <H1 variant="gradient">{ep.name}</H1>
-        </div>
-        <div>
-          <P variant="gradient">{ep.description}</P>
-        </div>
-      </div>
+      <MediaContentDetails content={ep} />
     </div>
   );
 }

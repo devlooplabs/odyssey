@@ -77,7 +77,7 @@ export async function findLiveEpisodes({ limit }: FindLiveEpisodesParams) {
             ({
               ...ep,
               type: MediaContentType.video,
-              url: `/live/watch/${ep.documentId}`,
+              url: `/lives/watch/${ep.documentId}`,
             }) as LiveEpisode
         )
       : [],

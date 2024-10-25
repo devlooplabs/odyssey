@@ -1,6 +1,5 @@
 import { watchSerieEpisode } from "@/app/actions";
-import { H1 } from "@/components/typography/headings";
-import { P } from "@/components/typography/texts";
+import { MediaContentDetails } from "@/components/media/content/media-content-details";
 import { getVideoFrameUrl } from "@/lib/bunnycdn";
 import { notFound } from "next/navigation";
 
@@ -19,17 +18,11 @@ export default async function Page({
             loading="lazy"
             src={url}
             allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen;"
-            className="border border-primary rounded-3xl h-full w-full max-w-[1080px] aspect-video bg-background"></iframe>
+            className="border border-primary rounded-3xl h-full w-full max-w-[1080px] aspect-video bg-background"
+          ></iframe>
         )}
       </div>
-      <div>
-        <div>
-          <H1 variant="gradient">{ep.name}</H1>
-        </div>
-        <div>
-          <P variant="gradient">{ep.description}</P>
-        </div>
-      </div>
+      <MediaContentDetails content={ep} />
     </div>
   );
 }
