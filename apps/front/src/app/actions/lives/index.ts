@@ -2,8 +2,20 @@
 
 import qs from "qs";
 import { getOdysseyClient } from "../client";
-import { MediaContentType, OdysseyFindResponse } from "../types";
-import { LiveEpisode } from "./types";
+import {
+  MediaContentType,
+  OdysseyBaseResponse,
+  OdysseyFindResponse,
+} from "../types";
+import { Live, LiveEpisode } from "./types";
+
+export async function findCurrentLive() {
+  const client = getOdysseyClient();
+  const url = `/api/live`;
+  const res = await client.get<OdysseyBaseResponse<Live>>(url);
+
+  return res.data;
+}
 
 export async function findLiveEpisode(id: string) {
   const client = getOdysseyClient();

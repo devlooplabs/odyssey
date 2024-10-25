@@ -1,6 +1,6 @@
 import Image from "next/image";
 import React from "react";
-import { Media, MediaContent } from "@/app/actions/types";
+import { MediaContent } from "@/app/actions/types";
 import { H1 } from "@/components/typography/headings";
 import { P } from "@/components/typography/texts";
 import { Button } from "@/components/ui/button";

@@ -689,6 +689,33 @@ export interface ApiCourseSubmoduleCourseSubmodule
   };
 }
 
+export interface ApiLiveLive extends Struct.SingleTypeSchema {
+  collectionName: 'lives';
+  info: {
+    singularName: 'live';
+    pluralName: 'lives';
+    displayName: 'Live';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    description: Schema.Attribute.Text;
+    youtubeUrl: Schema.Attribute.Text & Schema.Attribute.Required;
+    createdAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    publishedAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::live.live'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiLiveEpisodeLiveEpisode extends Struct.CollectionTypeSchema {
   collectionName: 'live_episodes';
   info: {
@@ -717,44 +744,6 @@ export interface ApiLiveEpisodeLiveEpisode extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::live-episode.live-episode'
-    > &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiMediaCategoryMediaCategory
-  extends Struct.CollectionTypeSchema {
-  collectionName: 'media_categories';
-  info: {
-    singularName: 'media-category';
-    pluralName: 'media-categories';
-    displayName: 'Media Category';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: true;
-    };
-    'content-type-builder': {
-      visible: true;
-    };
-  };
-  attributes: {
-    name: Schema.Attribute.String & Schema.Attribute.Required;
-    description: Schema.Attribute.Text;
-    createdAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    publishedAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::media-category.media-category'
     > &
       Schema.Attribute.Private;
   };
@@ -1002,10 +991,6 @@ export interface ApiSerieSerie extends Struct.CollectionTypeSchema {
     seasons: Schema.Attribute.Relation<
       'oneToMany',
       'api::serie-season.serie-season'
-    >;
-    category: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::media-category.media-category'
     >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
@@ -1500,8 +1485,8 @@ declare module '@strapi/strapi' {
       'api::course-lesson.course-lesson': ApiCourseLessonCourseLesson;
       'api::course-module.course-module': ApiCourseModuleCourseModule;
       'api::course-submodule.course-submodule': ApiCourseSubmoduleCourseSubmodule;
+      'api::live.live': ApiLiveLive;
       'api::live-episode.live-episode': ApiLiveEpisodeLiveEpisode;
-      'api::media-category.media-category': ApiMediaCategoryMediaCategory;
       'api::payment.payment': ApiPaymentPayment;
       'api::plan.plan': ApiPlanPlan;
       'api::plan-payment-option.plan-payment-option': ApiPlanPaymentOptionPlanPaymentOption;
