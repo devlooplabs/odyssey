@@ -9,8 +9,7 @@ import {
 } from "@/app/actions/podcasts/types";
 import { MediaContentCarousel } from "@/components/media/content/media-content-carousel";
 import { MediaCard } from "@/components/media/media-card";
-import { MediaThumbnail } from "@/components/media/media-thumbnail";
-import { H1, H2, H3, H4 } from "@/components/typography/headings";
+import { H1, H2 } from "@/components/typography/headings";
 import { Card, CardContent } from "@/components/ui/card";
 import { useEffect, useState, useTransition } from "react";
 
@@ -27,7 +26,7 @@ export default function Page() {
     });
 
     startLoadingPodcasts(async () => {
-      const res = await findPodcasts();
+      const res = await findPodcasts({});
       setPodcasts(res.data);
     });
   }, []);

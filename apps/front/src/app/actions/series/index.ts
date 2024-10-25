@@ -96,7 +96,12 @@ export async function findSerieEpisodes({
     ...res.data,
     data: res.data.data
       ? res.data.data.map(
-          (ep) => ({ ...ep, type: MediaContentType.video }) as SerieEpisode
+          (ep) =>
+            ({
+              ...ep,
+              type: MediaContentType.video,
+              url: `/series/watch/${ep.documentId}`,
+            }) as SerieEpisode
         )
       : null,
   };

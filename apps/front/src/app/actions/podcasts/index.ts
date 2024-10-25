@@ -5,13 +5,18 @@ import { getOdysseyClient } from "../client";
 import { MediaContentType, MediaType, OdysseyFindResponse } from "../types";
 import { Podcast, PodcastEpisode } from "./types";
 
-export async function findPodcasts() {
+interface FindPodcastsParams {
+  limit?: number;
+}
+
+export async function findPodcasts({ limit }: FindPodcastsParams) {
   const client = getOdysseyClient();
   const query = qs.stringify(
     {
       populate: {
         thumbnail: true,
       },
+      pagination: limit ? { limit } : null,
     },
     { encodeValuesOnly: true }
   );

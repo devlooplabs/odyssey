@@ -6,7 +6,7 @@ import {
   ChangePasswordSchema,
 } from "@/app/actions/auth/schemas";
 import { useAuth } from "@/components/auth/auth-context";
-import { LoadingSpinner } from "@/components/loading/LoadingSpinner";
+import { LoadingSpinner } from "@/components/loading/loading-spinner";
 import {
   AlertDialog,
   AlertDialogCancel,

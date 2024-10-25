@@ -9,6 +9,7 @@ import { PodcastEpisodesCarousel } from "@/components/media/content/podcasts/pod
 import { H2 } from "@/components/typography/headings";
 import { MediaContent } from "../actions/types";
 import { findFeaturedContent } from "../actions";
+import { LiveEpisodesCarousel } from "@/components/media/content/lives/live-episodes-carousel";
 
 export default function Home() {
   const [featured, setFeatured] = useState<MediaContent | null>(null);
@@ -23,7 +24,7 @@ export default function Home() {
     });
 
     startLoadingPodcasts(async () => {
-      const res = await findPodcasts();
+      const res = await findPodcasts({ limit: 3 });
       setPodcasts(res.data);
     });
   }, []);
@@ -32,6 +33,12 @@ export default function Home() {
   return (
     <div className="w-full space-y-8">
       {featured && <MediaContentBanner content={featured} />}
+      <div className="space-y-8">
+        <div className="flex justify-center">
+          <H2 variant="gradient">Lives</H2>
+        </div>
+        <LiveEpisodesCarousel />
+      </div>
       <div className="space-y-8">
         <div className="flex justify-center">
           <H2 variant="gradient">Podcasts</H2>

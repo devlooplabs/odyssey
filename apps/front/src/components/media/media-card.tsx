@@ -15,7 +15,11 @@ export const MediaCard: React.FC<MediaCardProps> = ({ media, variant }) => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
   return (
     <>
-      <div className="w-full" role="button" onClick={() => setOpen(true)}>
+      <div
+        className="w-full border border-primary/50 rounded-2xl overflow-hidden hover:border-primary"
+        role="button"
+        onClick={() => setOpen(true)}
+      >
         <MediaThumbnail
           variant={variant}
           name={media.name}
