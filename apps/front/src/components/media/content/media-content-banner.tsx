@@ -17,7 +17,7 @@ export const MediaContentBanner: React.FC<MediaContentBannerProps> = ({
 
   return (
     <div className="relative w-full aspect-[6/2] overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent">
+      <div className="absolute inset-0">
         {content.thumbnail && (
           <Image
             src={content.thumbnail.url}
@@ -29,12 +29,15 @@ export const MediaContentBanner: React.FC<MediaContentBannerProps> = ({
           />
         )}
       </div>
-      <div className="absolute inset-0 p-6 flex flex-col justify-center gap-8">
+      <div className="absolute inset-0 p-6 flex flex-col justify-center gap-8 bg-gradient-to-t from-black/70 to-transparent">
         <div>
           <H1 variant="gradient">{content.name}</H1>
           <div className="max-w-[800px]">
             {content.description && (
-              <P variant="gradient" className="line-clamp-2 md:line-clamp-3 lg:line-clamp-5">
+              <P
+                variant="gradient"
+                className="line-clamp-2 md:line-clamp-3 lg:line-clamp-5"
+              >
                 {content.description}
               </P>
             )}

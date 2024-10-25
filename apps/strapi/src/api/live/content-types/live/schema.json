@@ -4,7 +4,8 @@
   "info": {
     "singularName": "live",
     "pluralName": "lives",
-    "displayName": "Live"
+    "displayName": "Live",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -21,6 +22,13 @@
     "youtubeUrl": {
       "type": "text",
       "required": true
+    },
+    "thumbnail": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

@@ -6,3 +6,4 @@ export * from "./payments";
 export * from "./plans";
 export * from "./podcasts";
 export * from "./series";
+export * from "./media";

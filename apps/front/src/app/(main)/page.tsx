@@ -1,26 +1,25 @@
 "use client";
 
 import { useAuth } from "@/components/auth/auth-context";
-import { Hero } from "./components/hero/hero";
-import { Explore } from "./components/explore/expore";
 import { useEffect, useState, useTransition } from "react";
-import { Podcast, PodcastEpisode } from "../actions/podcasts/types";
-import { findPodcastEpisodes, findPodcasts } from "../actions/podcasts";
+import { Podcast } from "../actions/podcasts/types";
+import { findPodcasts } from "../actions/podcasts";
 import { MediaContentBanner } from "@/components/media/content/media-content-banner";
-import { MediaContentCarousel } from "@/components/media/content/media-content-carousel";
 import { PodcastEpisodesCarousel } from "@/components/media/content/podcasts/podcast-episodes-carousel";
 import { H2 } from "@/components/typography/headings";
+import { MediaContent } from "../actions/types";
+import { findFeaturedContent } from "../actions";
 
 export default function Home() {
-  const [latest, setLatest] = useState<PodcastEpisode | null>(null);
+  const [featured, setFeatured] = useState<MediaContent | null>(null);
   const [podcasts, setPodcasts] = useState<Podcast[]>([]);
   const [loadingLatest, startLoadingLatest] = useTransition();
   const [loadingPodcasts, startLoadingPodcasts] = useTransition();
 
   useEffect(() => {
     startLoadingLatest(async () => {
-      const res = await findPodcastEpisodes({ limit: 1 });
-      if (res.data.length) setLatest(res.data[0]);
+      const { data: featured } = await findFeaturedContent();
+      if (featured) setFeatured(featured);
     });
 
     startLoadingPodcasts(async () => {
@@ -32,7 +31,7 @@ export default function Home() {
   const { isMember } = useAuth();
   return (
     <div className="w-full space-y-8">
-      {latest && <MediaContentBanner content={latest} />}
+      {featured && <MediaContentBanner content={featured} />}
       <div className="space-y-8">
         <div className="flex justify-center">
           <H2 variant="gradient">Podcasts</H2>

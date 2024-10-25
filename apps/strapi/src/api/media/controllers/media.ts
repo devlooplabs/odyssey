@@ -4,7 +4,9 @@ export default ({ strapi }: { strapi: Core.Strapi }) => ({
   async featured(ctx) {
     try {
       let content = null;
-      const live = await strapi.service("api::live.live").find();
+      const live = await strapi.service("api::live.live").find({
+        populate: ["thumbnail"],
+      });
       if (live) {
         content = { ...live, type: "live" };
       }

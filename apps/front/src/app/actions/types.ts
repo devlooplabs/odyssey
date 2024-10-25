@@ -71,6 +71,7 @@ export interface Media {
 
 export enum MediaContentType {
   video = "video",
+  live = "live",
 }
 
 export interface MediaContent {

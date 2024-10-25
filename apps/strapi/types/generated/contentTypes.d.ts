@@ -695,6 +695,7 @@ export interface ApiLiveLive extends Struct.SingleTypeSchema {
     singularName: 'live';
     pluralName: 'lives';
     displayName: 'Live';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -703,6 +704,7 @@ export interface ApiLiveLive extends Struct.SingleTypeSchema {
     name: Schema.Attribute.String & Schema.Attribute.Required;
     description: Schema.Attribute.Text;
     youtubeUrl: Schema.Attribute.Text & Schema.Attribute.Required;
+    thumbnail: Schema.Attribute.Media<'images'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
