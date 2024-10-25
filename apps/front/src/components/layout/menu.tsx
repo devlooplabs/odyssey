@@ -26,11 +26,6 @@ const items = [
     segment: "courses",
   },
   // {
-  //   title: "Podcasts",
-  //   path: "#",
-  //   segment: "podcasts",
-  // },
-  // {
   //   title: "Ebooks",
   //   path: "#",
   //   segment: "ebooks",
@@ -38,13 +33,13 @@ const items = [
   {
     title: "Podcasts",
     path: "/podcasts",
-    segument: "podcasts",
+    segment: "podcasts",
   },
-  // {
-  //   title: "Séries",
-  //   path: "/series",
-  //   segment: "series",
-  // },
+  {
+    title: "Séries",
+    path: "/series",
+    segment: "series",
+  },
   // {
   //   title: "Comunidade",
   //   path: "#",

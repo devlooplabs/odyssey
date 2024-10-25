@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-10-24T22:22:43.215Z"
+    "x-generation-date": "2024-10-24T22:35:57.039Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -11325,7 +11325,8 @@
         "properties": {
           "data": {
             "required": [
-              "name"
+              "name",
+              "video"
             ],
             "type": "object",
             "properties": {
@@ -11430,7 +11431,8 @@
       "CourseLesson": {
         "type": "object",
         "required": [
-          "name"
+          "name",
+          "video"
         ],
         "properties": {
           "id": {
@@ -22478,7 +22480,8 @@
         "properties": {
           "data": {
             "required": [
-              "name"
+              "name",
+              "video"
             ],
             "type": "object",
             "properties": {
@@ -22580,7 +22583,8 @@
       "PodcastEpisode": {
         "type": "object",
         "required": [
-          "name"
+          "name",
+          "video"
         ],
         "properties": {
           "id": {

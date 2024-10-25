@@ -7,27 +7,24 @@ import { factories } from "@strapi/strapi";
 export default factories.createCoreController(
   "api::serie-episode.serie-episode",
   ({ strapi }) => ({
-    async find(ctx) {
-      const { data, meta } = await super.find(ctx);
-
-      const credentials = ctx.state.auth.credentials;
-      if (!credentials || credentials.role.type !== "member") {
-        data.forEach((item) => {
-          delete item.video;
+    async watch(ctx) {
+      await this.validateQuery(ctx);
+      const { id } = ctx.params;
+      const episode = await strapi
+        .documents("api::serie-episode.serie-episode")
+        .findOne({
+          documentId: id,
+          populate: ["thumbnail", "video"],
         });
-      }
 
-      return { data, meta };
-    },
-    async findOne(ctx) {
-      const response = await super.findOne(ctx);
+      // Still sanitizes for security but adds video.
+      let sanitized = (await this.sanitizeOutput(episode, ctx)) as any;
+      sanitized = {
+        ...sanitized,
+        video: episode.video,
+      };
 
-      const credentials = ctx.state.auth.credentials;
-      if (!credentials || credentials.role.type !== "member") {
-        delete response.data.video;
-      }
-
-      return response;
+      return this.transformResponse(sanitized);
     },
   })
 );

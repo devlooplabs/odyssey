@@ -36,7 +36,7 @@
     "video": {
       "type": "media",
       "multiple": false,
-      "required": false,
+      "required": true,
       "private": true,
       "allowedTypes": [
         "videos"

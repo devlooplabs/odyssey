@@ -12,10 +12,10 @@
   },
   "pluginOptions": {
     "content-manager": {
-      "visible": false
+      "visible": true
     },
     "content-type-builder": {
-      "visible": false
+      "visible": true
     }
   },
   "attributes": {
@@ -46,6 +46,7 @@
       "type": "media",
       "multiple": false,
       "required": true,
+      "private": true,
       "allowedTypes": ["videos"]
     }
   }

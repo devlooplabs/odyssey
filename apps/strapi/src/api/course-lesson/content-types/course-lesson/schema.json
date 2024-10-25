@@ -4,7 +4,8 @@
   "info": {
     "singularName": "course-lesson",
     "pluralName": "course-lessons",
-    "displayName": "Course Lesson"
+    "displayName": "Course Lesson",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -22,18 +23,21 @@
       "type": "text"
     },
     "thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "video": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "private": true,
       "allowedTypes": [
         "videos"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "submodule": {
       "type": "relation",

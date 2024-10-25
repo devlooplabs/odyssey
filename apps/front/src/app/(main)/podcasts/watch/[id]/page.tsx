@@ -1,5 +1,4 @@
-import { findSerieEpisode } from "@/app/actions";
-import { findPodcastEpisode, watchPodcastEpisode } from "@/app/actions/podcasts";
+import { watchPodcastEpisode } from "@/app/actions/podcasts";
 import { H1 } from "@/components/typography/headings";
 import { P } from "@/components/typography/texts";
 import { getVideoFrameUrl } from "@/lib/bunnycdn";
@@ -21,7 +20,7 @@ export default async function Page({
             src={url}
             allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;fullscreen;"
             className="border border-primary rounded-3xl h-full w-full max-w-[1080px] aspect-video bg-background"
-          />
+          ></iframe>
         )}
       </div>
       <div>

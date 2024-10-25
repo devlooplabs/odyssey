@@ -102,13 +102,24 @@ export async function findSerieEpisodes({
   };
 }
 
+export async function watchSerieEpisode(id: string) {
+  const client = getOdysseyClient();
+  const url = `/api/serie-episodes/${id}/watch`;
+  const res = await client.get<OdysseyFindResponse<SerieEpisode>>(url);
+  return {
+    ...res.data,
+    data: res.data.data
+      ? ({ ...res.data.data, type: MediaContentType.video } as SerieEpisode)
+      : null,
+  };
+}
+
 export async function findSerieEpisode(id: string) {
   const client = getOdysseyClient();
   const query = qs.stringify(
     {
       populate: {
         thumbnail: true,
-        video: true,
       },
     },
     { encodeValuesOnly: true }

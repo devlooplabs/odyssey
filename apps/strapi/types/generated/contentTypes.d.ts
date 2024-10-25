@@ -579,6 +579,7 @@ export interface ApiCourseLessonCourseLesson
     singularName: 'course-lesson';
     pluralName: 'course-lessons';
     displayName: 'Course Lesson';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -588,7 +589,9 @@ export interface ApiCourseLessonCourseLesson
     number: Schema.Attribute.Integer;
     description: Schema.Attribute.Text;
     thumbnail: Schema.Attribute.Media<'images'>;
-    video: Schema.Attribute.Media<'videos'>;
+    video: Schema.Attribute.Media<'videos'> &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
     submodule: Schema.Attribute.Relation<
       'manyToOne',
       'api::course-submodule.course-submodule'
@@ -735,10 +738,10 @@ export interface ApiMediaCategoryMediaCategory
   };
   pluginOptions: {
     'content-manager': {
-      visible: false;
+      visible: true;
     };
     'content-type-builder': {
-      visible: false;
+      visible: true;
     };
   };
   attributes: {
@@ -957,7 +960,9 @@ export interface ApiPodcastEpisodePodcastEpisode
     podcast: Schema.Attribute.Relation<'manyToOne', 'api::podcast.podcast'>;
     description: Schema.Attribute.Text;
     thumbnail: Schema.Attribute.Media<'images'>;
-    video: Schema.Attribute.Media<'videos'> & Schema.Attribute.Private;
+    video: Schema.Attribute.Media<'videos'> &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -987,10 +992,10 @@ export interface ApiSerieSerie extends Struct.CollectionTypeSchema {
   };
   pluginOptions: {
     'content-manager': {
-      visible: false;
+      visible: true;
     };
     'content-type-builder': {
-      visible: false;
+      visible: true;
     };
   };
   attributes: {
@@ -1032,10 +1037,10 @@ export interface ApiSerieEpisodeSerieEpisode
   };
   pluginOptions: {
     'content-manager': {
-      visible: false;
+      visible: true;
     };
     'content-type-builder': {
-      visible: false;
+      visible: true;
     };
   };
   attributes: {
@@ -1047,7 +1052,9 @@ export interface ApiSerieEpisodeSerieEpisode
       'manyToOne',
       'api::serie-season.serie-season'
     >;
-    video: Schema.Attribute.Media<'videos'> & Schema.Attribute.Required;
+    video: Schema.Attribute.Media<'videos'> &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
