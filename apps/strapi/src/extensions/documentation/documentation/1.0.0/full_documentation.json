@@ -14,7 +14,7 @@
       "name": "Apache 2.0",
       "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "x-generation-date": "2024-10-24T22:35:57.039Z"
+    "x-generation-date": "2024-10-25T16:14:57.790Z"
   },
   "x-strapi-config": {
     "plugins": [
@@ -2568,7 +2568,7 @@
         "operationId": "delete/course-submodules/{id}"
       }
     },
-    "/lives": {
+    "/live-episodes": {
       "get": {
         "responses": {
           "200": {
@@ -2576,7 +2576,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LiveListResponse"
+                  "$ref": "#/components/schemas/LiveEpisodeListResponse"
                 }
               }
             }
@@ -2633,7 +2633,7 @@
           }
         },
         "tags": [
-          "Live"
+          "Live-episode"
         ],
         "parameters": [
           {
@@ -2739,7 +2739,7 @@
             }
           }
         ],
-        "operationId": "get/lives"
+        "operationId": "get/live-episodes"
       },
       "post": {
         "responses": {
@@ -2748,7 +2748,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LiveResponse"
+                  "$ref": "#/components/schemas/LiveEpisodeResponse"
                 }
               }
             }
@@ -2805,23 +2805,23 @@
           }
         },
         "tags": [
-          "Live"
+          "Live-episode"
         ],
         "parameters": [],
-        "operationId": "post/lives",
+        "operationId": "post/live-episodes",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LiveRequest"
+                "$ref": "#/components/schemas/LiveEpisodeRequest"
               }
             }
           }
         }
       }
     },
-    "/lives/{id}": {
+    "/live-episodes/{id}": {
       "get": {
         "responses": {
           "200": {
@@ -2829,7 +2829,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LiveResponse"
+                  "$ref": "#/components/schemas/LiveEpisodeResponse"
                 }
               }
             }
@@ -2886,7 +2886,7 @@
           }
         },
         "tags": [
-          "Live"
+          "Live-episode"
         ],
         "parameters": [
           {
@@ -2900,7 +2900,7 @@
             }
           }
         ],
-        "operationId": "get/lives/{id}"
+        "operationId": "get/live-episodes/{id}"
       },
       "put": {
         "responses": {
@@ -2909,7 +2909,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/LiveResponse"
+                  "$ref": "#/components/schemas/LiveEpisodeResponse"
                 }
               }
             }
@@ -2966,7 +2966,7 @@
           }
         },
         "tags": [
-          "Live"
+          "Live-episode"
         ],
         "parameters": [
           {
@@ -2980,13 +2980,13 @@
             }
           }
         ],
-        "operationId": "put/lives/{id}",
+        "operationId": "put/live-episodes/{id}",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/LiveRequest"
+                "$ref": "#/components/schemas/LiveEpisodeRequest"
               }
             }
           }
@@ -3057,7 +3057,7 @@
           }
         },
         "tags": [
-          "Live"
+          "Live-episode"
         ],
         "parameters": [
           {
@@ -3071,7 +3071,7 @@
             }
           }
         ],
-        "operationId": "delete/lives/{id}"
+        "operationId": "delete/live-episodes/{id}"
       }
     },
     "/media-categories": {
@@ -16776,7 +16776,7 @@
           }
         }
       },
-      "LiveRequest": {
+      "LiveEpisodeRequest": {
         "type": "object",
         "required": [
           "data"
@@ -16784,7 +16784,8 @@
         "properties": {
           "data": {
             "required": [
-              "name"
+              "name",
+              "video"
             ],
             "type": "object",
             "properties": {
@@ -16837,13 +16838,13 @@
           }
         }
       },
-      "LiveListResponse": {
+      "LiveEpisodeListResponse": {
         "type": "object",
         "properties": {
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Live"
+              "$ref": "#/components/schemas/LiveEpisode"
             }
           },
           "meta": {
@@ -16872,10 +16873,11 @@
           }
         }
       },
-      "Live": {
+      "LiveEpisode": {
         "type": "object",
         "required": [
-          "name"
+          "name",
+          "video"
         ],
         "properties": {
           "id": {
@@ -17985,11 +17987,11 @@
           }
         }
       },
-      "LiveResponse": {
+      "LiveEpisodeResponse": {
         "type": "object",
         "properties": {
           "data": {
-            "$ref": "#/components/schemas/Live"
+            "$ref": "#/components/schemas/LiveEpisode"
           },
           "meta": {
             "type": "object"

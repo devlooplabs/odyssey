@@ -689,29 +689,23 @@ export interface ApiCourseSubmoduleCourseSubmodule
   };
 }
 
-export interface ApiLiveLive extends Struct.CollectionTypeSchema {
-  collectionName: 'lives';
+export interface ApiLiveEpisodeLiveEpisode extends Struct.CollectionTypeSchema {
+  collectionName: 'live_episodes';
   info: {
-    singularName: 'live';
-    pluralName: 'lives';
-    displayName: 'Live';
+    singularName: 'live-episode';
+    pluralName: 'live-episodes';
+    displayName: 'Live Episode';
   };
   options: {
     draftAndPublish: true;
-  };
-  pluginOptions: {
-    'content-manager': {
-      visible: false;
-    };
-    'content-type-builder': {
-      visible: false;
-    };
   };
   attributes: {
     name: Schema.Attribute.String & Schema.Attribute.Required;
     description: Schema.Attribute.Text;
     thumbnail: Schema.Attribute.Media<'images'>;
-    video: Schema.Attribute.Media<'videos'>;
+    video: Schema.Attribute.Media<'videos'> &
+      Schema.Attribute.Required &
+      Schema.Attribute.Private;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -720,7 +714,10 @@ export interface ApiLiveLive extends Struct.CollectionTypeSchema {
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<'oneToMany', 'api::live.live'> &
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::live-episode.live-episode'
+    > &
       Schema.Attribute.Private;
   };
 }
@@ -1503,7 +1500,7 @@ declare module '@strapi/strapi' {
       'api::course-lesson.course-lesson': ApiCourseLessonCourseLesson;
       'api::course-module.course-module': ApiCourseModuleCourseModule;
       'api::course-submodule.course-submodule': ApiCourseSubmoduleCourseSubmodule;
-      'api::live.live': ApiLiveLive;
+      'api::live-episode.live-episode': ApiLiveEpisodeLiveEpisode;
       'api::media-category.media-category': ApiMediaCategoryMediaCategory;
       'api::payment.payment': ApiPaymentPayment;
       'api::plan.plan': ApiPlanPlan;

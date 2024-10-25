@@ -1,22 +1,15 @@
 {
   "kind": "collectionType",
-  "collectionName": "lives",
+  "collectionName": "live_episodes",
   "info": {
-    "singularName": "live",
-    "pluralName": "lives",
-    "displayName": "Live"
+    "singularName": "live-episode",
+    "pluralName": "live-episodes",
+    "displayName": "Live Episode"
   },
   "options": {
     "draftAndPublish": true
   },
-  "pluginOptions": {
-    "content-manager": {
-      "visible": false
-    },
-    "content-type-builder": {
-      "visible": false
-    }
-  },
+  "pluginOptions": {},
   "attributes": {
     "name": {
       "type": "string",
@@ -26,14 +19,20 @@
       "type": "text"
     },
     "thumbnail": {
-      "allowedTypes": ["images"],
+      "allowedTypes": [
+        "images"
+      ],
       "type": "media",
       "multiple": false
     },
     "video": {
-      "allowedTypes": ["videos"],
+      "allowedTypes": [
+        "videos"
+      ],
       "type": "media",
-      "multiple": false
+      "multiple": false,
+      "required": true,
+      "private": true
     }
   }
 }
