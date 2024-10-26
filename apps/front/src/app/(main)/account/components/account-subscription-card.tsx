@@ -32,8 +32,8 @@ export const AccountSubscriptionCard: React.FC<AccountSubscriptionCardProps> = (
                   />
                 </b>
               </P>
-              <P>Iniciou em:</P>
-              <P>Próxima cobrança:</P>
+              {/* <P>Iniciou em:</P>
+              <P>Próxima cobrança:</P> */}
             </div>
             <div>
               <Button
