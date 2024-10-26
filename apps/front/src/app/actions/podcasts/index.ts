@@ -4,6 +4,7 @@ import qs from "qs";
 import { getOdysseyClient } from "../client";
 import { MediaContentType, MediaType, OdysseyFindResponse } from "../types";
 import { Podcast, PodcastEpisode } from "./types";
+import { getVideoFrameUrl } from "../cdn";
 
 interface FindPodcastsParams {
   limit?: number;
@@ -119,10 +120,11 @@ export async function watchPodcastEpisode(id: string) {
   const client = getOdysseyClient();
   const url = `/api/podcast-episodes/${id}/watch`;
   const res = await client.get<OdysseyFindResponse<PodcastEpisode>>(url);
-  return {
-    ...res.data,
-    data: res.data.data
-      ? ({ ...res.data.data, type: MediaContentType.video } as PodcastEpisode)
-      : null,
-  };
+  if (res.data.data) {
+    res.data.data.type = MediaContentType.video;
+    res.data.data.video.provider_metadata.url = await getVideoFrameUrl(
+      res.data.data.video
+    );
+  }
+  return res.data;
 }

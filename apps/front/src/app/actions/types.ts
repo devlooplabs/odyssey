@@ -34,6 +34,7 @@ export interface OdysseyFile {
 export interface OdysseyVideoFile extends OdysseyFile {
   provider_metadata: {
     guid: string;
+    url: string;
   };
 }
 

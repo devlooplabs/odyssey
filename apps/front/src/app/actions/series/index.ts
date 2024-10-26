@@ -4,6 +4,7 @@ import qs from "qs";
 import { getOdysseyClient } from "../client";
 import { MediaContentType, MediaType, OdysseyFindResponse } from "../types";
 import { Serie, SerieEpisode, SerieSeason } from "./types";
+import { getVideoFrameUrl } from "../cdn";
 
 interface FindSeriesProps {
   count?: number;
@@ -111,12 +112,13 @@ export async function watchSerieEpisode(id: string) {
   const client = getOdysseyClient();
   const url = `/api/serie-episodes/${id}/watch`;
   const res = await client.get<OdysseyFindResponse<SerieEpisode>>(url);
-  return {
-    ...res.data,
-    data: res.data.data
-      ? ({ ...res.data.data, type: MediaContentType.video } as SerieEpisode)
-      : null,
-  };
+  if (res.data.data) {
+    res.data.data.type = MediaContentType.video;
+    res.data.data.video.provider_metadata.url = await getVideoFrameUrl(
+      res.data.data.video
+    );
+  }
+  return res.data;
 }
 
 export async function findSerieEpisode(id: string) {

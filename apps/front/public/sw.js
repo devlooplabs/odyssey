@@ -1,5 +1,4 @@
 self.addEventListener("push", function (event) {
-  console.log("Notification received.");
   if (event.data) {
     const data = event.data.json();
     const options = {
@@ -17,7 +16,6 @@ self.addEventListener("push", function (event) {
 });
 
 self.addEventListener("notificationclick", function (event) {
-  console.log("Notification click received.");
   event.notification.close();
   event.waitUntil(clients.openWindow("https://localhost:3000"));
 });

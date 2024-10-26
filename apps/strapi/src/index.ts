@@ -24,7 +24,6 @@ export default {
       models: ["api::podcast-episode.podcast-episode"],
       // Aparentemente ele chama o afterCreate sempre que um modelo é publicado.
       async afterCreate(event) {
-        console.log("-----------------CREATE--------------------");
         if (event.params.data?.publishedAt) {
           const BATCH_SIZE = 50;
           let page = 1;
@@ -47,13 +46,10 @@ export default {
             page += 1;
 
             for (const user of users) {
-              console.log(user);
               await sendNotification(user.notifications.subscription, payload);
             }
           } while (users.length === BATCH_SIZE);
         }
-
-        console.log("-----------------CREATE--------------------");
       },
       async afterUpdate(event) {},
     });

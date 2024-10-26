@@ -4,6 +4,7 @@ import qs from "qs";
 import { getOdysseyClient } from "../client";
 import { MediaContentType, MediaType, OdysseyFindResponse } from "../types";
 import { Course, CourseLesson, CourseModule, CourseSubmodule } from "./types";
+import { getVideoFrameUrl } from "../cdn";
 
 export async function findCourse(id: string) {
   const client = getOdysseyClient();
@@ -44,7 +45,7 @@ export async function findCourseModule(id: string) {
   const client = getOdysseyClient();
   const query = qs.stringify(
     {
-      populate: "thumbnail"
+      populate: "thumbnail",
     },
     { encodeValuesOnly: true }
   );
@@ -158,15 +159,15 @@ export async function findCourseLessons({
   return res.data;
 }
 
-
 export async function watchCourseLesson(id: string) {
   const client = getOdysseyClient();
   const url = `/api/course-lessons/${id}/watch`;
   const res = await client.get<OdysseyFindResponse<CourseLesson>>(url);
-  return {
-    ...res.data,
-    data: res.data.data
-      ? ({ ...res.data.data, type: MediaContentType.video } as CourseLesson)
-      : null,
-  };
+  if (res.data.data) {
+    res.data.data.type = MediaContentType.video;
+    res.data.data.video.provider_metadata.url = await getVideoFrameUrl(
+      res.data.data.video
+    );
+  }
+  return res.data;
 }

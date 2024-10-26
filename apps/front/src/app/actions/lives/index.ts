@@ -8,6 +8,7 @@ import {
   OdysseyFindResponse,
 } from "../types";
 import { Live, LiveEpisode } from "./types";
+import { getVideoFrameUrl } from "../cdn";
 
 export async function findCurrentLive() {
   const client = getOdysseyClient();
@@ -42,12 +43,13 @@ export async function watchLiveEpisode(id: string) {
   const client = getOdysseyClient();
   const url = `/api/live-episodes/${id}/watch`;
   const res = await client.get<OdysseyFindResponse<LiveEpisode>>(url);
-  return {
-    ...res.data,
-    data: res.data.data
-      ? ({ ...res.data.data, type: MediaContentType.video } as LiveEpisode)
-      : null,
-  };
+    if (res.data.data) {
+      res.data.data.type = MediaContentType.video;
+      res.data.data.video.provider_metadata.url = await getVideoFrameUrl(
+        res.data.data.video
+      );
+    }
+    return res.data;
 }
 
 interface FindLiveEpisodesParams {
