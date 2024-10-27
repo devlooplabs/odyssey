@@ -2,6 +2,7 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
+  DialogTitle,
 } from "../ui/dialog";
 import { MediaDetails } from "./media-details";
 import { MediaBanner } from "./media-banner";
@@ -22,6 +23,7 @@ export const MediaDialog: React.FC<MediaDialogProps> = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-[calc(100%-100px)] lg:max-w-[850px] p-0 rounded-xl">
         <DialogHeader>
+          <DialogTitle className="sr-only">{media.name}</DialogTitle>
           <MediaBanner media={media} />
         </DialogHeader>
         <MediaDetails media={media} />

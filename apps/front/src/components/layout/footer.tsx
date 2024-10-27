@@ -8,21 +8,25 @@ export function Footer() {
       <div className="container flex justify-between gap-4">
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
-            <Link href="/faq" className={linkCls}>
+            <Link href="/faq" className={linkCls} prefetch={false}>
               Dúvidas frequentes
             </Link>
-            <Link href="/terms" className={linkCls}>
+            <Link href="/terms" className={linkCls} prefetch={false}>
               Termos de uso
             </Link>
-            <Link href="/account" className={linkCls}>
+            <Link href="/account" className={linkCls} prefetch={false}>
               Conta
             </Link>
-            <Link href="/contact" className={linkCls}>
+            <Link href="/contact" className={linkCls} prefetch={false}>
               Contato
             </Link>
           </div>
           <div className="">
-            <Link href="https://wa.me/32999465598?text=Olá" className={linkCls}>
+            <Link
+              href="https://wa.me/32999465598?text=Olá"
+              className={linkCls}
+              prefetch={false}
+            >
               Whatsapp: (32) 9 9946-5598
             </Link>
           </div>

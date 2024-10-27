@@ -1,12 +1,11 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ResetPasswordForm } from "./reset-password-form";
 
-export default function SignUp() {
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: { code: string };
+}) {
   return (
     <Card className="border-none py-4">
       <CardHeader>
@@ -15,7 +14,7 @@ export default function SignUp() {
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <ResetPasswordForm />
+        <ResetPasswordForm code={searchParams.code} />
       </CardContent>
     </Card>
   );

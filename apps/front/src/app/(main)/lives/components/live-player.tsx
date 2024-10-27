@@ -7,7 +7,7 @@ import React from "react";
 interface LiveProps {
   live: Live;
 }
-
+const host = process.env.NEXT_PUBLIC_HOST;
 export const LivePlayer: React.FC<LiveProps> = ({ live }) => {
   const id = extractYouTubeVideoID(live.youtubeUrl);
   return (
@@ -29,7 +29,7 @@ export const LivePlayer: React.FC<LiveProps> = ({ live }) => {
         </div>
         <iframe
           className="w-full md:max-w-[400px] border border-primary rounded-2xl"
-          src={`https://www.youtube.com/live_chat?v=${id}&embed_domain=localhost`}
+          src={`https://www.youtube.com/live_chat?v=${id}&embed_domain=${host}`}
         ></iframe>
       </div>
       <div className="pt-4">

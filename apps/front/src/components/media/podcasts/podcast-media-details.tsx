@@ -43,7 +43,7 @@ export const PodcastMediaDetails: React.FC<PodcastMediaDetailsProps> = ({
       </div>
       <div>
         {episodes.map((ep) => (
-          <PodcastMediaDetailsEpisode episode={ep} />
+          <PodcastMediaDetailsEpisode key={ep.documentId} episode={ep} />
         ))}
       </div>
     </div>

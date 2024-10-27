@@ -13,6 +13,7 @@ import { ForgotPasswordResult, TokenResult, User } from "./types";
 import { getOdysseyClient } from "../client";
 import { JWT_COOKIE_NAME } from "@/lib/auth";
 import { OdysseyBaseResponse } from "../types";
+import { redirect } from "next/navigation";
 
 export async function signup(model: SignUpModel) {
   const client = getOdysseyClient();
@@ -46,6 +47,7 @@ export async function login(model: SignInModel) {
 
 export async function logout() {
   cookies().delete(JWT_COOKIE_NAME);
+  return redirect("/");
 }
 
 export async function getMe() {

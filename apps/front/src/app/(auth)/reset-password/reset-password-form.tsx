@@ -22,23 +22,16 @@ import { useSearchParams } from "next/navigation";
 import { resetPassword } from "@/app/actions";
 import { useAuth } from "@/components/auth/auth-context";
 
-export function ResetPasswordForm() {
+export function ResetPasswordForm({ code }: Readonly<{ code: string }>) {
   const searchParams = useSearchParams();
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string>();
   const { onLogin } = useAuth();
 
-  useEffect(() => {
-    const code = searchParams.get("code");
-    if (code) {
-      form.setValue("code", code);
-    }
-  }, [searchParams]);
-
   const form = useForm<ResetPasswordModel>({
     resolver: zodResolver(ResetPasswordSchema),
-    values: {
-      code: "",
+    defaultValues: {
+      code,
       password: "",
       passwordConfirmation: "",
     },
