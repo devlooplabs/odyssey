@@ -4,10 +4,12 @@ import { P } from "@/components/typography/texts";
 import { MediaContentComments } from "./media-content-comments";
 
 interface MediaContentDetailsProps {
+  hasAccess: boolean;
   content: MediaContent;
 }
 
 export const MediaContentDetails: React.FC<MediaContentDetailsProps> = ({
+  hasAccess,
   content,
 }) => {
   return (
@@ -20,9 +22,7 @@ export const MediaContentDetails: React.FC<MediaContentDetailsProps> = ({
           <P variant="gradient">{content.description}</P>
         </div>
       </div>
-      <div>
-        <MediaContentComments content={content} />
-      </div>
+      <div>{hasAccess && <MediaContentComments content={content} />}</div>
     </div>
   );
 };

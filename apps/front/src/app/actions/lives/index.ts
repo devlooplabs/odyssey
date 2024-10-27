@@ -39,19 +39,6 @@ export async function findLiveEpisode(id: string) {
   };
 }
 
-export async function watchLiveEpisode(id: string) {
-  const client = getOdysseyClient();
-  const url = `/api/live-episodes/${id}/watch`;
-  const res = await client.get<OdysseyFindResponse<LiveEpisode>>(url);
-    if (res.data.data) {
-      res.data.data.type = MediaContentType.video;
-      res.data.data.video.provider_metadata.url = await getVideoFrameUrl(
-        res.data.data.video
-      );
-    }
-    return res.data;
-}
-
 interface FindLiveEpisodesParams {
   limit?: number;
 }
@@ -84,4 +71,29 @@ export async function findLiveEpisodes({ limit }: FindLiveEpisodesParams) {
         )
       : [],
   };
+}
+
+export async function watchLiveEpisode(id: string) {
+  const client = getOdysseyClient();
+
+  let res = await client.get<OdysseyBaseResponse<LiveEpisode>>(
+    `/api/live-episodes/${id}/watch`
+  );
+
+  // If user doesn't have access to watch, fetch the episode metadata.
+  if (res.status === 403) {
+    res = await client.get<OdysseyBaseResponse<LiveEpisode>>(
+      `/api/live-episodes/${id}?populate=thumbnail`
+    );
+    return { ...res.data, hasAccess: false };
+  }
+
+  if (res.data.data) {
+    res.data.data.type = MediaContentType.video;
+    res.data.data.video.provider_metadata.url = await getVideoFrameUrl(
+      res.data.data.video
+    );
+  }
+
+  return { ...res.data, hasAccess: true };
 }

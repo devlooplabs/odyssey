@@ -2,7 +2,7 @@
 
 import qs from "qs";
 import { getOdysseyClient } from "../client";
-import { MediaContentType, MediaType, OdysseyFindResponse } from "../types";
+import { MediaContentType, MediaType, OdysseyBaseResponse, OdysseyFindResponse } from "../types";
 import { Podcast, PodcastEpisode } from "./types";
 import { getVideoFrameUrl } from "../cdn";
 
@@ -118,13 +118,25 @@ export async function findPodcastEpisode(id: string) {
 
 export async function watchPodcastEpisode(id: string) {
   const client = getOdysseyClient();
-  const url = `/api/podcast-episodes/${id}/watch`;
-  const res = await client.get<OdysseyFindResponse<PodcastEpisode>>(url);
+
+  let res = await client.get<OdysseyBaseResponse<PodcastEpisode>>(
+    `/api/podcast-episodes/${id}/watch`
+  );
+
+  // If user doesn't have access to watch, fetch the episode metadata.
+  if (res.status === 403) {
+    res = await client.get<OdysseyBaseResponse<PodcastEpisode>>(
+      `/api/podcast-episodes/${id}?populate=thumbnail`
+    );
+    return { ...res.data, hasAccess: false };
+  }
+
   if (res.data.data) {
     res.data.data.type = MediaContentType.video;
     res.data.data.video.provider_metadata.url = await getVideoFrameUrl(
       res.data.data.video
     );
   }
-  return res.data;
+
+  return { ...res.data, hasAccess: true };
 }

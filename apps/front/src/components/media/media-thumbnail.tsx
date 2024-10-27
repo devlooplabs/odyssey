@@ -1,6 +1,5 @@
 import Image from "next/image";
-import { P } from "../typography/texts";
-import { Media, OdysseyImageFile } from "@/app/actions/types";
+import { OdysseyImageFile } from "@/app/actions/types";
 import { cva, VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 

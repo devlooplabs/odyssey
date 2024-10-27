@@ -36,7 +36,7 @@ export default [
     config: {
       useDefaults: true,
       formidable: {
-        maxFileSize: 5 * 1024 * 1024 * 1024,
+        maxFileSize: 20 * 1024 * 1024 * 1024,
       },
     },
   },
