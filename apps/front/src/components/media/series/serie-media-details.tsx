@@ -30,13 +30,15 @@ export const SerieMediaDetails: React.FC<SerieMediaDetailsProps> = ({
   const [loading, startLoading] = useTransition();
 
   useEffect(() => {
-    startLoading(async () => {
-      const res = await findSerieEpisodes({
-        seasonId: season,
-      });
+    if (season) {
+      startLoading(async () => {
+        const res = await findSerieEpisodes({
+          seasonId: season,
+        });
 
-      if (res.data) setEpisodes(res.data);
-    });
+        if (res.data) setEpisodes(res.data);
+      });
+    }
   }, [season]);
 
   return (
